@@ -5,6 +5,8 @@ import nextAuthOptions from "@/lib/utils/nextAuthOptions";
 import * as React from "react"
 import AddTelegramCard from "./components/addtelegramcard";
 import TelegramTable from "./components/telegramTable";
+import { IconExclamationMark } from "@tabler/icons-react";
+import { cn } from "@/lib/utils";
 
 const prisma = new PrismaClient();
 async function getUser() {
@@ -22,23 +24,36 @@ export default async function Telegram() {
             nameHolder: session.address.base56
         }
     });
+    console.log(telegrams);
 
 
     return (
-        <div className="flex flex-1">
-        <div className="p-2 md:p-10 rounded-tl-2xl border border-neutral-200 overflow-y-auto dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full h-full">
+        <>
             <div className="text-2xl font-semibold leading-none tracking-tight">
                 Telegram
             </div>
             <div className="lg:grid md:grid-flow-col gap-3">
                 <div className="md:col-span-10 mb-[300px]">
+                    <DescriptiveContent state={(telegrams.length>0)}/>
                     <TelegramTable session={session} contents={telegrams}/>
                 </div>
                 <div className="md:col-span-1 ">
                     <AddTelegramCard session={session}/>
                 </div>
             </div>
-        </div>
-    </div>
+        </>
     );
+}
+
+function DescriptiveContent({state}:{state:boolean}){
+    console.log(state);
+    return (
+        <div className={cn(
+            "p-1 mt-3 rounded-[10px] bg-theme-1 flex gap-2 items-center",
+            state && "hidden"
+        )}>
+            <IconExclamationMark size={40} className="text-red-400"/>
+            <div className="text-[#414141] font-mono">By adding a userhandle here will allow that telegram to add files to btfs using your quota.</div>
+        </div>
+    )
 }

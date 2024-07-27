@@ -27,7 +27,7 @@ export default function Layout({children}: {children: React.ReactNode}) {
     return (
         <div
             className={cn(
-            "rounded-md flex flex-col md:flex-row dark:bg-theme-3 w-full flex-1 max-w-full mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
+            "relative rounded-md flex flex-col md:flex-row dark:bg-theme-3 w-full flex-1 max-w-full mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
             "h-screen" // for your use case, use `h-screen` instead of `h-[60vh]`
             )}
         >
@@ -48,7 +48,11 @@ export default function Layout({children}: {children: React.ReactNode}) {
             </div>
           </SidebarBody>
         </Sidebar>
-        {children}
+        <div className="flex flex-1">
+          <div className="p-2 md:p-10 md:rounded-tl-2xl rounded-tl-0 border border-neutral-200 overflow-y-auto dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full h-full">
+            {children}
+          </div>
+        </div>
       </div>
     );
 

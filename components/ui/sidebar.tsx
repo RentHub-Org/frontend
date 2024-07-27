@@ -4,6 +4,7 @@ import Link, { LinkProps } from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons-react";
+import Image from "next/image";
 
 interface Links {
   label: string;
@@ -105,6 +106,16 @@ export const DesktopSidebar = ({
   );
 };
 
+const Flux = ()=> {
+  return (    
+      <Image
+          src="/flux.svg"
+          width={28}
+          height={28}
+          alt="add logo"
+      />);  
+  }
+
 export const MobileSidebar = ({
   className,
   children,
@@ -115,13 +126,19 @@ export const MobileSidebar = ({
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full"
+          "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-100 dark:bg-theme-3 w-full"
         )}
         {...props}
       >
-        <div className="flex justify-end z-20 w-full">
+        <div className="flex justify-between z-20 w-full">
+          <div className="flex gap-2 item-center">
+            <Flux/>
+            <span className="font-extrabold text-2xl text-black dark:text-theme-5 whitespace-pre h-5">
+              Flux
+            </span>
+          </div>
           <IconMenu2
-            className="text-neutral-800 dark:text-neutral-200"
+            className="text-neutral-800 dark:text-theme-5"
             onClick={() => setOpen(!open)}
           />
         </div>
