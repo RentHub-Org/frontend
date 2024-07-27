@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { useEffect } from "react";
 import { getServerSession } from "next-auth";
 import nextAuthOptions from "@/lib/utils/nextAuthOptions";
 import * as React from "react"
