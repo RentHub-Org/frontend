@@ -6,6 +6,8 @@ import { WalletDisconnectedError, WalletError, WalletNotFoundError } from '@tron
 import { useCallback, useMemo } from "react";
 import { TronLinkAdapter } from '@tronweb3/tronwallet-adapters';
 import { ThemeProvider } from "./theme-provider";
+import { DevUploadModalProvider } from "./devUploadModalProvider";
+import { RentalUploadModalProvider } from "./rentalUploadModalProvider";
 
 export default function Provider({children}:{children: React.ReactNode}){
     const adapters = useMemo(() => [new TronLinkAdapter()],[]);
@@ -29,7 +31,11 @@ export default function Provider({children}:{children: React.ReactNode}){
                     enableSystem
                     disableTransitionOnChange
                 >
-                    {children}
+                    <DevUploadModalProvider>
+                        <RentalUploadModalProvider>
+                            {children}
+                        </RentalUploadModalProvider>
+                    </DevUploadModalProvider>
                 </ThemeProvider>
             </SessionProvider>
         </WalletProvider>
