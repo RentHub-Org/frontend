@@ -1,4 +1,5 @@
 import { IconSausage, IconUserBolt, IconBrandTelegram, IconFile } from "@tabler/icons-react";
+import { LucideKeySquare } from "lucide-react";
 
 export const links = [
     {
@@ -29,4 +30,12 @@ export const links = [
         <IconBrandTelegram  className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
+    {
+      label: "Api-keys",
+      href: "/app/api",
+      icon: (
+        <LucideKeySquare  className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    
   ];

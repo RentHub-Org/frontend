@@ -44,7 +44,7 @@ export default function Layout({children}: {children: React.ReactNode}) {
             <div className="flex flex-col gap-2">
                 {/* <ModeToggle/> */}
                 {/* //todo: make this profile component to make logout sessions and much more like a drop down features...*/}
-                <Avvvatars style='shape' value="tim@apple.com" />
+                <Avvvatars style='shape' value={session?.address?.hex} />
             </div>
           </SidebarBody>
         </Sidebar>
