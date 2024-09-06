@@ -8,7 +8,7 @@ const GetStarted = () => {
       <h1 className="text-4xl font-pixelfy">
         GET STARTED IN {"<"} 1 MIN, FOR REAL REAL !
       </h1>
-      <section className="grid grid-cols-2 gap-10">
+      <section className="grid grid-cols-3 max-sm:grid-cols-1 max-lg:grid-cols-2 gap-10">
         <ThemeCard
           title="SDK"
           description="Add effortless uploads to any app with our typescript SDK."

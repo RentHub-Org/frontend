@@ -12,7 +12,7 @@ const CurveCard = ({
   return (
     <CenterWrap
       className={cn(
-        "rounded-3xl relative w-full max-h-max p-10 bg-gradient-to-tr from-purple-400 via-black to-btfs",
+        "rounded-3xl relative w-full shadow-2xl shadow-[#3d3d3d] max-h-max p-10 bg-gradient-to-tr from-purple-400 via-black to-btfs",
         className
       )}
     >
