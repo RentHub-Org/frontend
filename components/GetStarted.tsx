@@ -13,18 +13,18 @@ const GetStarted = () => {
           title="SDK"
           description="Add effortless uploads to any app with our typescript SDK."
           command={"npm i btfs-cloud"}
-          color="[#0076E8]"
+          color="cyan"
         />
         <ThemeCard
           title="React Package"
           description="Add effortless componrntea to any react app with our package."
-          color="[blue-400]"
+          color="blue"
           command={"npm create btfs-cloud"}
         />
         <ThemeCard
           title="BTFS CLI"
           description="simlasly integrate our btfs cloud cli into your react application."
-          color="purple-400"
+          color="purple"
           command={"npm i btfs-cloud-cli"}
         />
       </section>
@@ -34,26 +34,34 @@ const GetStarted = () => {
 
 export default GetStarted;
 
+const colorMap: { [key: string]: string } = {
+  blue: "from-blue-400",
+  red: "from-red-500",
+  cyan: "from-cyan-200",
+  purple: "from-purple-400",
+  yellow: "from-yellow-500",
+  btfs: "#0076E8"
+  // Add more colors as needed
+};
+
 const ThemeCard = ({
   title,
   description,
   command,
-  color = "purple-400"
+  color
 }: {
   title: string;
   description: string;
   command: string;
-  color: any;
+  color: keyof typeof colorMap;
 }) => {
   const bgColor = `from-${color}`;
 
   return (
     <div
       className={cn(
-        `p-8 py-10 max-w-[520px] rounded-2xl bg-gradient-to-b from-${color} to-black hover:border`,
-        {
-          // [`from-${color}`]: color
-        }
+        "p-8 py-10 max-w-[520px] rounded-2xl bg-gradient-to-b to-black hover:border",
+        colorMap[color] // This maps to the correct Tailwind class
       )}
     >
       <h1 className="font-bold text-3xl font-sans mb-5">{title}</h1>
