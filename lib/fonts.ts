@@ -1,4 +1,4 @@
-import { Pixelify_Sans, Protest_Guerrilla, Roboto } from "next/font/google";
+import { Pixelify_Sans, Roboto } from "next/font/google";
 
 const roboto_init = Roboto({
   subsets: ["latin"],
@@ -12,12 +12,7 @@ const pixelfy_init = Pixelify_Sans({
   variable: "--font-pixelfy"
 });
 
-const protest_init = Protest_Guerrilla({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-protest"
-});
+
 
 export const roboto = roboto_init.variable;
 export const pixelfy = pixelfy_init.variable;
-export const protest = protest_init.variable;
