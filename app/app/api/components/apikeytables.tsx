@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Copy, Eye, Trash2Icon, ArrowRightFromLine, Goal } from "lucide-react"
 import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 type KeyRow = {
     key: string;
@@ -63,6 +64,7 @@ function Row({data}: {data:KeyRow}){
     const [ hidden, sethidden] = useState(true);
     function calling(){
         alert("delete");
+        
     }
     async function viewIt(){
         sethidden(false);
@@ -70,7 +72,7 @@ function Row({data}: {data:KeyRow}){
     }
     function copy(){
         navigator.clipboard.writeText(data.key);
-        alert("copied");
+        toast.info("Copied");
     }   
     return (
         <>
@@ -109,9 +111,12 @@ function AddApiKey({calling}: any){
             }
         })
         .then((res)=>{
+            if(res.status == 200)
+                toast.success("New api-key created successfully.");
             console.log("res: ",res);
         })
         .catch((err)=>{
+            toast.error("Error while creating a new api-key. Please try again later.");
             console.error("Error: ",err);
         })
         .finally(()=>{

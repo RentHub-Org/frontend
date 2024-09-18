@@ -5,6 +5,7 @@ import CurveCard from "../ui/CurveCard";
 import CenterWrap from "../globals/centerwrap";
 import GetStarted from "./GetStarted";
 import Features from "./Features";
+import { cn } from "@/lib/utils";
 
 const Hero = () => {
   return (
@@ -14,20 +15,16 @@ const Hero = () => {
         <div className="flex gap-7 flex-col">
           <div>
             <h1 className="font-pixelfy font-bold text-4xl md:text-7xl text-white">
-              Introducing BTFS
+              Introducing RentHub
             </h1>
             <h1 className="font-pixelfy font-bold text-3xl md:text-6xl text-btfs">
-              Cloudinary{" "}
+              Powered by BTFS{" "}
             </h1>
           </div>
 
-          <h4 className="font-roboto font-medium">
-            One click deployment of your files with centralised dashboard to
-            handle your files on BTFS seemless nodes on Blockchain.
+          <h4 className="font-roboto font-medium text-lg">
+            The one stop solution to your BTFS needs.
           </h4>
-          <Button className="bg-[#9778ff] w-[180px] h-[30px]">
-            Get Started
-          </Button>
         </div>
         <div className="flex items-start w-[200px] md:w-[700px]">
           <Image

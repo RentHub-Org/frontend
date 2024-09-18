@@ -71,13 +71,13 @@ const Navbar = ({ session }: Props) => {
       <CenterWrap className="sm:px-7 flex justify-between items-center">
         <aside className="flex items-center gap-[2px]">
           <Image
-            src="flux.svg"
-            width={32}
-            height={32}
+            src="flux_home.svg"
+            width={50}
+            height={50}
             alt="fuzzie logo"
-            className="shadow-sm"
+            className="shadow-sm mb-5"
           />
-          <p className="text-4xl font-pixelfy font-bold">Flux</p>
+          <p className="text-4xl font-pixelfy font-bold">RentHub <span className="text-btfs text-sm">BTFS</span></p>
         </aside>
         <ul className="hidden md:flex font-bold items-center gap-6 list-none">
           <li>
@@ -87,10 +87,10 @@ const Navbar = ({ session }: Props) => {
             <Link href="#">Pricing</Link>
           </li>
           <li>
-            <Link href="#">Docs</Link>
+            <Link href="https://docs.renthub.cloud">Docs</Link>
           </li>
           <li>
-            <Link href="#">SDK Link</Link>
+            <Link href="https://www.npmjs.com/package/@ellumina/renthub-btfs">SDK Link</Link>
           </li>
           <li>
             <Link href="#">About</Link>

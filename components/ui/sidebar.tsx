@@ -134,7 +134,7 @@ export const MobileSidebar = ({
           <div className="flex gap-2 item-center">
             <Flux/>
             <span className="font-extrabold text-2xl text-black dark:text-theme-5 whitespace-pre h-5">
-              Flux
+              RentHub <span className="text-theme-5">BTFS</span>
             </span>
           </div>
           <IconMenu2

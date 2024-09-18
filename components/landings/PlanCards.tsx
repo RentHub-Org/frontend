@@ -10,7 +10,7 @@ interface CardProps {
 
 const PlanCard = (props: CardProps) => {
   return (
-    <div className="w-full flex flex-col gap-16">
+    <div className="relative w-full flex flex-col gap-16">
       <h5 className="mb-4 text-center text-6xl font-semibold text-gray-200 font-pixelfy">
         All the fun, none of the fuss with our {props.title === "free" ? "free" : "rental"} plan!
         <span className='ml-4 text-6xl'>{props.emoji}</span>
@@ -23,15 +23,6 @@ const PlanCard = (props: CardProps) => {
           </>
         ))}
       </section>
-      <Link
-        href={`/app`}
-        className="absolute left-10 -bottom-5 text-black bg-highlight 
-        shadow-2xl hover:shadow-xl  hover:translate-y-1 transition-all ease-in-out
-         focus:ring-4 shadow-black focus:outline-none focus:ring-blue-900 font-semibold rounded-lg 
-         text-sm px-2 py-2.5 inline-flex justify-center w-3/4 text-center"
-      >
-        Get Started
-      </Link>
     </div>
   );
 };

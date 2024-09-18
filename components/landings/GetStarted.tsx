@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
-import { Copy } from "lucide-react";
+import { Copy, Link2 } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 const GetStarted = () => {
@@ -9,23 +10,17 @@ const GetStarted = () => {
         GET STARTED IN {"<"} 1 MIN, FOR REAL REAL !
       </h1>
       <section className="grid grid-cols-3 max-sm:grid-cols-1 max-lg:grid-cols-2 gap-10">
+      <ThemeCard
+          title="Docs"
+          description="A compresve docs explaning everything there is to know."
+          text="Visit Docs"
+          link="https://docs.renthub.cloud"
+        />
         <ThemeCard
           title="SDK"
           description="Add effortless uploads to any app with our typescript SDK."
-          command={"npm i btfs-cloud"}
-          color="cyan"
-        />
-        <ThemeCard
-          title="React Package"
-          description="Add effortless componrntea to any react app with our package."
-          color="blue"
-          command={"npm create btfs-cloud"}
-        />
-        <ThemeCard
-          title="BTFS CLI"
-          description="simlasly integrate our btfs cloud cli into your react application."
-          color="purple"
-          command={"npm i btfs-cloud-cli"}
+          text="npm install @ellumina/renthub-btfs"
+          link="https://www.npmjs.com/package/@ellumina/renthub-btfs"
         />
       </section>
     </main>
@@ -34,45 +29,37 @@ const GetStarted = () => {
 
 export default GetStarted;
 
-const colorMap: { [key: string]: string } = {
-  blue: "from-blue-400",
-  red: "from-red-500",
-  cyan: "from-cyan-200",
-  purple: "from-purple-400",
-  yellow: "from-yellow-500",
-  btfs: "#0076E8"
-  // Add more colors as needed
-};
-
 const ThemeCard = ({
   title,
   description,
-  command,
-  color
+  text,
+  link
 }: {
   title: string;
   description: string;
-  command: string;
-  color: keyof typeof colorMap;
+  text: string;
+  link: string;
 }) => {
-  const bgColor = `from-${color}`;
 
   return (
     <div
       className={cn(
-        "p-8 py-10 max-w-[520px] rounded-2xl bg-gradient-to-b to-black hover:border",
-        colorMap[color] // This maps to the correct Tailwind class
+        `p-8 py-10 max-w-[520px] rounded-2xl bg-gradient-to-tr from-purple-400 to-btfs hover:border opacity-70`,
       )}
     >
       <h1 className="font-bold text-3xl font-sans mb-5">{title}</h1>
       <p className="text-lg text-gray-800 leading-6">{description}</p>
       <div className="bg-[#0F0F0F] mt-6 w-full text-gray-300 rounded-md px-2 py-2">
-        {command}
+        {text}
         <span className="float-right">
-          <Copy
-            fontSize={150}
-            className={`bg-purple-500 hover:bg-purple-800 cursor-pointer rounded-md text-[2rem] p-1`}
-          />
+          <Link
+            href={link}
+          >
+            <Link2
+              fontSize={150}
+              className={`bg-purple-500 hover:bg-purple-800 cursor-pointer rounded-md text-[2rem] p-1`}
+            />
+          </Link>
         </span>
       </div>
     </div>

@@ -83,3 +83,35 @@ export async function POST(
 
     return NextResponse.json({apiKey});
 }
+
+
+
+export async function DELETE(
+    req: Request
+){
+    const session = await getServerSession(nextAuthOptions);
+    console.log("session:",session);
+    const { key } = await req.json();
+    if(key == null){
+        return NextResponse.json(
+            { error: 'undefined key.' },
+            { status: 400 } // 400 Bad Request
+        );
+    }
+    if(session == null){
+        return NextResponse.json(
+            { error: 'undefined session.' },
+            { status: 400 } // 400 Bad Request
+        );
+    }
+    // creating a new api key for the user...
+    const address = session.address.base56;
+    console.log("address:",address);
+    const prisma = new PrismaClient();
+    const data = await prisma.apiKeys.delete({
+        where: {
+          key,
+        },
+    }) as any;
+    return NextResponse.json({data});
+}

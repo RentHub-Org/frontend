@@ -11,7 +11,7 @@ const config = {
   prefix: "",
   theme: {
   	container: {
-  		center: 'true',
+  		center: true,
   		padding: '2rem',
   		screens: {
   			'2xl': '1400px'
@@ -20,8 +20,8 @@ const config = {
   	extend: {
   		colors: {
   			'theme-1': '#DCE1DE',
-  			'theme-2': '#9CC5A1',
-  			'theme-3': '#49A078',
+  			'theme-2': '#0970EF',
+  			'theme-3': '#9778ff',
   			'theme-4': '#216869',
   			'theme-5': '#1F2421',
   			greenn: '#00ffcf',

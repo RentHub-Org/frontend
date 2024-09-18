@@ -71,7 +71,9 @@ const Logo = () => {
           animate={{ opacity: 1 }}
           className="font-extrabold text-2xl text-black dark:text-theme-5 whitespace-pre h-5"
           >
-          Flux
+            <span className="font-extrabold text-2xl text-black dark:text-theme-5 whitespace-pre h-5">
+              RentHub <span className="text-sm text-[#071a52]">BTFS</span>
+            </span>
         </motion.span>
       </Link>
     );

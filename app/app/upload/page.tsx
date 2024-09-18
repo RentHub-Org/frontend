@@ -4,6 +4,7 @@ import RentalSection from "./components/rentalsection"
 import { PrismaClient } from "@prisma/client"
 import { getServerSession } from "next-auth";
 import NEXT_OPTIONS from "../../../lib/utils/nextAuthOptions"
+import { redirect } from "next/navigation";
 
 type SessionPayload = {
     address : {
@@ -36,10 +37,14 @@ export type File = {
 
 export default async function DashBoard(){
     const prisma = new PrismaClient();
-    const { address }: SessionPayload = await getServerSession(NEXT_OPTIONS) as SessionPayload;
+    const data : SessionPayload = await getServerSession(NEXT_OPTIONS) as SessionPayload;
+
+    if ( data ==null ) {
+        redirect("/app");
+    }
     const THE_FILES = await prisma.file.findMany({
         where: {
-            createdBy_email: address.base56,
+            createdBy_email: data.address.base56,
         }
     }).then((fields: FileField[])=>{
         return fields.map((field: FileField):File=>{

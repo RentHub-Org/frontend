@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils";
 import axios from "axios";
+import { toast } from "sonner";
 
 type SessionProp = {
     user: {
@@ -31,7 +32,7 @@ export default function AddTelegramCard({session}: {session: SessionProp}) {
     const initTelegramAdd = async ()=>{
         try{
             if(name == ""){
-                alert("name required");
+                toast.info("A name is required");
                 return;
             }
             setLocked(true);
@@ -50,10 +51,10 @@ export default function AddTelegramCard({session}: {session: SessionProp}) {
             console.log("res:",res);
             if(res.status == 201){
                 setName("");
-                alert("added!");
+                toast.success("Username added!");
             }
         }catch(err){
-            alert("failed adding telegram");
+            toast.error("failed adding telegram");
             console.error("Error while adding address:",err);
         }finally{
             setLocked(false);

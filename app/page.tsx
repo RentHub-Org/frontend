@@ -18,7 +18,7 @@ export default function Home() {
     <main className="bg-black w-full max-h-max min-h-screen">
       <Navbar session={session} />
       <section className="flex flex-col py-10">
-        <Hero />
+        <Hero/>
       </section>
 
       <CenterWrap className="p-6 flex flex-col space-y-10">

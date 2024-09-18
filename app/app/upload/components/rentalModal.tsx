@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label"
 import { IconUpload } from "@tabler/icons-react"
 import { useState } from "react"
 import axios from "axios"
+import { toast } from "sonner"
 
 export default function RentalModalButton() {
   const [ days , setDays ] = useState<number>(31);
@@ -34,8 +35,12 @@ export default function RentalModalButton() {
   }
   async function uploadHandle(){
     //checks
-    if(file == null)return;
+    if(file == null){
+      toast.info("Please select a file to upload.");
+      return;
+    }
     if(!days || days<31){
+      toast.info("Please enter the days for which you want to rent the node.");
       return;
     }
     const formdata = new FormData();
@@ -54,8 +59,9 @@ export default function RentalModalButton() {
       };
       const response = await axios(config);
       console.log("response baby:",response.data);
-      alert("uploded 🥹");
+      toast.success("Uploded!!");
     }catch(err){
+      toast.error("Error while uploding the file. Please try again later.");
       console.log("ERROR:",err);
     }
   }

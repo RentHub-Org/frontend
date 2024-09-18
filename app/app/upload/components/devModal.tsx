@@ -14,6 +14,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { IconPlus } from "@tabler/icons-react"
 import { useState } from "react"
+import { toast } from "sonner"
+
 
 export default function DevModalButton() {
   const [ file, setFile ] = useState<File | null>(null);
@@ -33,7 +35,10 @@ export default function DevModalButton() {
   }
   async function handleUpload(){
     //we uploading the file bro...
-    if(file == null)return;
+    if(file == null){
+      toast.info("Please select a file to upload.");
+      return;
+    }
     const formdata = new FormData();
     try {
       const data: { message: string; signature: string } = await signMessageWithTimeConstrain() as { message: string; signature: string };
@@ -47,8 +52,9 @@ export default function DevModalButton() {
         },
       });
       console.log(response.data);
-      alert("uploded 🥹");
+      toast.success("Uploded !!");
     } catch (err) {
+      toast.error("Error while uploding the file. Please try again later.");
       console.error("Error:", err);
     }
   }

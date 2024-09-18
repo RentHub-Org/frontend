@@ -6,6 +6,7 @@ import AddTelegramCard from "./components/addtelegramcard";
 import TelegramTable from "./components/telegramTable";
 import { IconExclamationMark } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
+import { redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
 async function getUser() {
@@ -15,8 +16,8 @@ async function getUser() {
 export default async function Telegram() {
     const session = await getUser();
     //now the sessions are present
-    if(!session || session == null){
-        return <div>loading...</div>
+    if (session == null) {
+        redirect("/app");
     }
     const telegrams = await prisma.telegramEndPoints.findMany({
         where: {

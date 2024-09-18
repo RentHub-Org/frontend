@@ -1,7 +1,8 @@
-// import nextAuthOptions from "@/lib/utils/nextAuthOptions";
-// import { getServerSession } from "next-auth";
+import nextAuthOptions from "@/lib/utils/nextAuthOptions";
+import { getServerSession } from "next-auth";
 
 import { ApiKeysTable } from "./components/apikeytables";
+import { redirect } from "next/navigation";
 
 type SessionPayload = {
     address : {
@@ -11,7 +12,10 @@ type SessionPayload = {
 }
 
 export default async function Api() {
-    // const { address }: SessionPayload =  await getServerSession(nextAuthOptions) as SessionPayload;
+    const data: SessionPayload =  await getServerSession(nextAuthOptions) as SessionPayload;
+    if(data == null){
+        redirect("/app");
+    }
     return (
         <>
             <div className="text-2xl font-semibold leading-none tracking-tight">
