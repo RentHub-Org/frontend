@@ -63,7 +63,7 @@ export default {
     }
   },
   pages: {
-    signIn: "/signin"
+    signIn: "/app"
   },
   secret: process.env.NEXTAUTH_SECRET
 };
