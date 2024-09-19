@@ -4,7 +4,14 @@ import React, { useEffect, useState } from "react";
 import { MenuIcon } from "lucide-react";
 import Avvvatars from "avvvatars-react";
 import CenterWrap from "./centerwrap";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
+import {
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "../ui/dropdown-menu";
+import { redirect } from "next/navigation";
 
 type Props = {
   session: {
@@ -72,12 +79,14 @@ const Navbar = ({ session }: Props) => {
         <aside className="flex items-center gap-[2px]">
           <Image
             src="flux_home.svg"
-            width={50}
-            height={50}
+            width={40}
+            height={40}
             alt="fuzzie logo"
-            className="shadow-sm mb-5"
+            className="shadow-sm mb-2"
           />
-          <p className="text-4xl font-pixelfy font-bold">RentHub <span className="text-btfs text-sm">BTFS</span></p>
+          <p className="text-4xl font-pixelfy font-bold">
+            RentHub <span className="text-btfs text-sm">BTFS</span>
+          </p>
         </aside>
         <ul className="hidden md:flex font-bold items-center gap-6 list-none">
           <li>
@@ -90,7 +99,9 @@ const Navbar = ({ session }: Props) => {
             <Link href="https://docs.renthub.cloud">Docs</Link>
           </li>
           <li>
-            <Link href="https://www.npmjs.com/package/@ellumina/renthub-btfs">SDK Link</Link>
+            <Link href="https://www.npmjs.com/package/@ellumina/renthub-btfs">
+              SDK Link
+            </Link>
           </li>
           <li>
             <Link href="#">About</Link>
@@ -110,7 +121,21 @@ const Navbar = ({ session }: Props) => {
                   </span>
                 </Link>
 
-                <Avvvatars style="shape" value={session?.data?.address?.hex} />
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <Avvvatars style="shape" value={String(window?.tronLink?.tronWeb.defaultAddress?.hex)} />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-48">
+                    <DropdownMenuItem
+                      onSelect={() => {
+                        signOut();
+                        redirect("/");
+                      }}
+                    >
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             ) : (
               <button

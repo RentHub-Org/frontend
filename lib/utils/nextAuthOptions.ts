@@ -1,8 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import { utils } from "tronweb";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
-const prisma = new PrismaClient();
 export default {
   providers: [
     CredentialsProvider({
@@ -20,21 +19,25 @@ export default {
           if (sigAddress !== messageAddress) {
             return null;
           }
-          //now checking in the db...
-          const user = await prisma.user.findFirst({
-            where: {
-              address: sigAddress
-            }
-          });
-          if (!user) {
-            await prisma.user.create({
-              data: {
-                address: sigAddress
-              }
-            });
 
-            console.log("user created successfully !");
+          try {
+            await prisma.user.upsert({
+              where: { address: sigAddress },
+              create: {
+                address: sigAddress,
+                creditUsage: {
+                  create: {
+                    credits: 0
+                  }
+                }
+              },
+              update: {}
+            });
+          } catch (err) {
+            console.error(err);
           }
+
+          console.log("user created successfully !");
           return {
             id: "1",
             name: "tronUser",
