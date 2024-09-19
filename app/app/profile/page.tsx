@@ -3,11 +3,11 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 type SessionPayload = {
-    address : {
-        base56: string;
-        hex: string;
-    }
-}
+  address: {
+    base56: string;
+    hex: string;
+  };
+};
 
 export default async function Profile() {
     const data : SessionPayload =  await getServerSession(nextAuthOptions) as SessionPayload;
