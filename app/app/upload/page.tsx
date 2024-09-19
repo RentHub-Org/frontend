@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DevSection from "./components/devsection";
 import RentalSection from "./components/rentalsection";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import NEXT_OPTIONS from "../../../lib/utils/nextAuthOptions";
 import { redirect } from "next/navigation";
@@ -36,7 +36,6 @@ export type File = {
 };
 
 export default async function DashBoard() {
-  const prisma = new PrismaClient();
   const data: SessionPayload = (await getServerSession(
     NEXT_OPTIONS
   )) as SessionPayload;

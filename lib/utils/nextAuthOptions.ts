@@ -1,8 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import { utils } from "tronweb";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
-const prisma = new PrismaClient();
 export default {
   providers: [
     CredentialsProvider({

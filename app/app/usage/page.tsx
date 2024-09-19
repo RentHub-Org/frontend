@@ -25,10 +25,12 @@ export default async function Usage() {
         </div>
         {/* graph */}
         <div>
-          <Chart userId={1} />
+          <Chart userAddr={"TQymTayyt9pPbSUFZjisyuanAsePL76VyG"} />
         </div>
         <div className="flex pt-16 flex-col gap-4">
-          <h2 className='text-gray-300'>Rent Now for Unlimited Storage on BTFS</h2>
+          <h2 className="text-gray-300">
+            Rent Now for Unlimited Storage on BTFS
+          </h2>
           <button className="px-8 rounded-md w-[150px] bg-theme-3 text-white">
             Rent
           </button>
