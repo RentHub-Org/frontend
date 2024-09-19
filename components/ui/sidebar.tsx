@@ -34,7 +34,7 @@ export const SidebarProvider = ({
   children,
   open: openProp,
   setOpen: setOpenProp,
-  animate = true,
+  animate = true
 }: {
   children: React.ReactNode;
   open?: boolean;
@@ -57,7 +57,7 @@ export const Sidebar = ({
   children,
   open,
   setOpen,
-  animate,
+  animate
 }: {
   children: React.ReactNode;
   open?: boolean;
@@ -94,7 +94,7 @@ export const DesktopSidebar = ({
           className
         )}
         animate={{
-          width: animate ? (open ? "300px" : "60px") : "300px",
+          width: animate ? (open ? "300px" : "60px") : "300px"
         }}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
@@ -106,15 +106,9 @@ export const DesktopSidebar = ({
   );
 };
 
-const Flux = ()=> {
-  return (    
-      <Image
-          src="/flux.svg"
-          width={28}
-          height={28}
-          alt="add logo"
-      />);  
-  }
+const Flux = () => {
+  return <Image src="/flux.svg" width={28} height={28} alt="add logo" />;
+};
 
 export const MobileSidebar = ({
   className,
@@ -132,7 +126,7 @@ export const MobileSidebar = ({
       >
         <div className="flex justify-between z-20 w-full">
           <div className="flex gap-2 item-center">
-            <Flux/>
+            <Flux />
             <span className="font-extrabold text-2xl text-black dark:text-theme-5 whitespace-pre h-5">
               RentHub <span className="text-theme-5">BTFS</span>
             </span>
@@ -150,7 +144,7 @@ export const MobileSidebar = ({
               exit={{ x: "-100%", opacity: 0 }}
               transition={{
                 duration: 0.3,
-                ease: "easeInOut",
+                ease: "easeInOut"
               }}
               className={cn(
                 "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between",
@@ -196,7 +190,7 @@ export const SidebarLink = ({
       <motion.span
         animate={{
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
-          opacity: animate ? (open ? 1 : 0) : 1,
+          opacity: animate ? (open ? 1 : 0) : 1
         }}
         className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
       >

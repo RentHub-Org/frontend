@@ -72,10 +72,10 @@ const Navbar = ({ session }: Props) => {
         <aside className="flex items-center gap-[2px]">
           <Image
             src="flux_home.svg"
-            width={50}
-            height={50}
+            width={40}
+            height={40}
             alt="fuzzie logo"
-            className="shadow-sm mb-5"
+            className="shadow-sm mb-2"
           />
           <p className="text-4xl font-pixelfy font-bold">RentHub <span className="text-btfs text-sm">BTFS</span></p>
         </aside>

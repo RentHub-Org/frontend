@@ -36,7 +36,7 @@ export default function DevModalButton() {
   };
   async function handleUpload() {
     //we uploading the file bro...
-    if(file == null){
+    if (file == null) {
       toast.info("Please select a file to upload.");
       return;
     }
@@ -49,18 +49,25 @@ export default function DevModalButton() {
         };
       formdata.append("file", file, file.name);
       console.log(process.env.NEXT_PUBLIC_CORE_BASE_URL);
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_CORE_BASE_URL}/tronSig/testout`, formdata, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'tron_message': data.message,
-          'tron_signature': data.signature,      
-        },
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_CORE_BASE_URL}/tronSig/testout`,
+        formdata,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            tron_message: data.message,
+            tron_signature: data.signature
+          }
+        }
+      );
       console.log(response.data);
       toast.success("Uploded !!");
-    } catch (err) {
-      toast.error("Error while uploding the file. Please try again later.");
+    } catch (err: any) {
       console.error("Error:", err);
+      if (err?.response === null || !err?.response) {
+        toast.error("Unexpected error occured !");
+        return;
+      }
       toast.error(err?.response?.data.message as String);
     } finally {
       setDialogTrigger(false);
