@@ -68,7 +68,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 }
 
 function ProfileDropdown({ session }: { session: any }) {
-  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
   return (
@@ -77,9 +76,6 @@ function ProfileDropdown({ session }: { session: any }) {
         <Avvvatars style="shape" value={session?.address?.hex} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-48">
-        <DropdownMenuItem onSelect={() => router.push("/app/profile")}>
-          Profile
-        </DropdownMenuItem>
         <DropdownMenuItem
           onSelect={() => {
             signOut();
@@ -97,42 +93,34 @@ const Logo = () => {
     <Link
       href="/"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+    >
+      <div className="h-5 w-6 flex-shrink-0">
+        <Flux />
+      </div>
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="font-extrabold text-2xl text-black dark:text-theme-5 whitespace-pre h-5"
       >
-        <div className="h-5 w-6 flex-shrink-0">
-            <Flux/>
-        </div>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="font-extrabold text-2xl text-black dark:text-theme-5 whitespace-pre h-5"
-          >
-            <span className="font-extrabold text-2xl text-black dark:text-theme-5 whitespace-pre h-5">
-              RentHub <span className="text-sm text-[#071a52]">BTFS</span>
-            </span>
-        </motion.span>
-      </Link>
-    );
-  };
-  const LogoIcon = () => {
-    return (
-        <Link
-            href="/"
-            className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-        >
-            <div className="h-5 w-6 flex-shrink-0">
-                <Flux/>
-            </div>
-        </Link>
-    );
-  };
-const Flux = ()=> {
-return (    
-    <Image
-        src="/flux.svg"
-        width={28}
-        height={28}
-        alt="add logo"
-    />);  
-}
-
-
+        <span className="font-extrabold text-2xl text-black dark:text-theme-5 whitespace-pre h-5">
+          RentHub <span className="text-sm text-[#071a52]">BTFS</span>
+        </span>
+      </motion.span>
+    </Link>
+  );
+};
+const LogoIcon = () => {
+  return (
+    <Link
+      href="/"
+      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+    >
+      <div className="h-5 w-6 flex-shrink-0">
+        <Flux />
+      </div>
+    </Link>
+  );
+};
+const Flux = () => {
+  return <Image src="/flux.svg" width={28} height={28} alt="add logo" />;
+};

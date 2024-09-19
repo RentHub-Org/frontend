@@ -69,7 +69,7 @@ export default async function Usage() {
   );
 }
 
-export const Box = ({ title, value }: { title: string; value: number }) => {
+const Box = ({ title, value }: { title: string; value: number }) => {
   return (
     <main className="px-6 flex-grow py-1 text-left w-auto max-w-[70%] rounded-md bg-black/100 border border-gray-600 text-white">
       <p className="text-[1.4rem]  font-semibold text-btfs">{value}</p>
