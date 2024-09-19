@@ -77,7 +77,9 @@ const Navbar = ({ session }: Props) => {
             alt="fuzzie logo"
             className="shadow-sm mb-2"
           />
-          <p className="text-4xl font-pixelfy font-bold">RentHub <span className="text-btfs text-sm">BTFS</span></p>
+          <p className="text-4xl font-pixelfy font-bold">
+            RentHub <span className="text-btfs text-sm">BTFS</span>
+          </p>
         </aside>
         <ul className="hidden md:flex font-bold items-center gap-6 list-none">
           <li>
@@ -90,7 +92,9 @@ const Navbar = ({ session }: Props) => {
             <Link href="https://docs.renthub.cloud">Docs</Link>
           </li>
           <li>
-            <Link href="https://www.npmjs.com/package/@ellumina/renthub-btfs">SDK Link</Link>
+            <Link href="https://www.npmjs.com/package/@ellumina/renthub-btfs">
+              SDK Link
+            </Link>
           </li>
           <li>
             <Link href="#">About</Link>

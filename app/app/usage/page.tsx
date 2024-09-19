@@ -1,11 +1,40 @@
-// "use client";
-
 import { redirect } from "next/navigation";
 import { authenticate } from "../actions/authenticate";
 import Chart from "./Chart";
+import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import nextAuthOptions from "@/lib/utils/nextAuthOptions";
 
 export default async function Usage() {
   const isLoggedIn = authenticate();
+  const session = await getServerSession(nextAuthOptions);
+  const userAddr = session?.address?.base56;
+
+  const files = await prisma.user.findUnique
+    ({
+      where: {
+        address: userAddr
+      },
+      select: {
+        rentedFiles: true
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  const credits = await prisma.user
+    .findUnique({
+      where: {
+        address: userAddr
+      },
+      select: {
+        credits: true
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 
   if (!isLoggedIn) {
     redirect("/");
@@ -19,9 +48,9 @@ export default async function Usage() {
       <section className="p-7">
         {/* boxes */}
         <div className="flex pb-14 max-w-[1100px] flex-grow flex-wrap gap-6 pr-10">
-          <Box title="Files Stored" value={4} />
-          <Box title="Credits Used" value={1000} />
-          <Box title="Credits Remaining" value={400} />
+          <Box title="Files Stored" value={Number(files?.rentedFiles?.length) | 0} />
+          <Box title="Credits Balance" value={Number(credits?.credits) | 0} />
+          <Box title="Credits Purchased" value={1000} />
         </div>
         {/* graph */}
         <div>
