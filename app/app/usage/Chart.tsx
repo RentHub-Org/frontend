@@ -40,13 +40,13 @@ const Chart = ({ userAddr }: { userAddr: string }) => {
   }, [userAddr]);
 
   const chartData = {
-    labels: credits.map(({ timestamp }) =>
+    labels: credits?.map(({ timestamp }) =>
       new Date(timestamp).toLocaleDateString()
     ),
     datasets: [
       {
         label: "Credits Over Time",
-        data: credits.map(({ credits }) => String(credits)),
+        data: credits?.map(({ credits }) => String(credits)),
         fill: false,
         backgroundColor: "rgb(75, 192, 192)",
         borderColor: "#0076E0",

@@ -5,7 +5,7 @@ import { MenuIcon } from "lucide-react";
 import Avvvatars from "avvvatars-react";
 import CenterWrap from "./centerwrap";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
+import { DropdownMenu, DropdownMenuGroup, DropdownMenuLabel, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -72,7 +72,10 @@ const Navbar = ({ session }: Props) => {
     }
     setAddress(window.tronLink.tronWeb.defaultAddress?.base58 || "");
   }, []);
-
+  function sliceAdd(add:string){
+    if(!add)return "";  
+    return add.slice(0, 6) + "..." + add.slice(-6);
+  }
   return (
     <header className="py-5 right-0 w-full bg-base-1 flex items-center border-b-[1px] border-neutral-900 justify-between">
       <CenterWrap className="sm:px-7 flex justify-between items-center">
@@ -125,16 +128,19 @@ const Navbar = ({ session }: Props) => {
                   <DropdownMenuTrigger>
                     <Avvvatars style="shape" value={String(window?.tronLink?.tronWeb.defaultAddress?.hex)} />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-48">
+                  <DropdownMenuLabel>{sliceAdd(window?.tronLink?.tronWeb.defaultAddress?.hex as string)}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+
                     <DropdownMenuItem
                       onSelect={() => {
                         signOut();
                         redirect("/");
                       }}
-                    >
+                      >
                       Logout
                     </DropdownMenuItem>
-                  </DropdownMenuContent>
+                  </DropdownMenuGroup>
                 </DropdownMenu>
               </div>
             ) : (

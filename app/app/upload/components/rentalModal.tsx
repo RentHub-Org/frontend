@@ -57,9 +57,13 @@ export default function RentalModalButton() {
         },
         data : formdata
       };
-      const response = await axios(config);
-      console.log("response baby:",response.data);
-      toast.success("Uploded!!");
+      try{
+        const response = await axios(config);
+        console.log("response baby:",response.data);
+        toast.success("Uploded!!");
+      }catch(err:any){
+        toast.error(err.response.data.message);
+      }
     }catch(err){
       toast.error("Error while uploding the file. Please try again later.");
       console.log("ERROR:",err);

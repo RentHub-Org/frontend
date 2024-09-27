@@ -18,6 +18,7 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { authenticate } from "./actions/authenticate";
+import { DropdownMenuGroup, DropdownMenuLabel, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -66,7 +67,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-
+function sliceAdd(add:string){
+  if (!add) return "";
+  return add.slice(0, 6) + "..." + add.slice(-6);
+}
 function ProfileDropdown({ session }: { session: any }) {
   const router = useRouter();
 
@@ -76,14 +80,19 @@ function ProfileDropdown({ session }: { session: any }) {
         <Avvvatars style="shape" value={session?.address?.hex} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-48">
-        <DropdownMenuItem
-          onSelect={() => {
-            signOut();
-            router.push("/");
-          }}
-        >
-          Logout
-        </DropdownMenuItem>
+        <DropdownMenuLabel>{sliceAdd(session?.address?.hex)}</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+
+          <DropdownMenuItem
+            onSelect={() => {
+              signOut();
+              router.push("/");
+            }}
+            >
+            Logout
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

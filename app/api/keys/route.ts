@@ -25,7 +25,7 @@ export async function GET(req: Request) {
   })) as any; // type error herer......
   console.log("userWithApiKeys:", userWithApiKeys);
 
-  const apiKeys = userWithApiKeys.apiKeys;
+  const apiKeys = userWithApiKeys?.apiKeys;
 
   return NextResponse.json({ apiKeys });
 }
