@@ -128,6 +128,7 @@ const Navbar = ({ session }: Props) => {
                   <DropdownMenuTrigger>
                     <Avvvatars style="shape" value={String(window?.tronLink?.tronWeb.defaultAddress?.hex)} />
                   </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-48">
                   <DropdownMenuLabel>{sliceAdd(window?.tronLink?.tronWeb.defaultAddress?.hex as string)}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
@@ -141,6 +142,7 @@ const Navbar = ({ session }: Props) => {
                       Logout
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
+                  </DropdownMenuContent>
                 </DropdownMenu>
               </div>
             ) : (
