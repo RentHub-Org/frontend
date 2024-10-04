@@ -54,8 +54,8 @@ export default function DevSection({ files }: { files: File[] }) {
           </TableHeader>
           <TableBody>
             {files && files.length > 0 ? (
-              files.map((file: File) => (
-                <FileRow file={file} screen={propDril} />
+              files.map((file: File, i: number) => (
+                <FileRow key={i} file={file} screen={propDril} />
               ))
             ) : (
               <TableRow>

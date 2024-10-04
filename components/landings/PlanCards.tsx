@@ -17,9 +17,9 @@ const PlanCard = (props: CardProps) => {
       </h5>
       {/* overviews */}
       <section className="w-full h-full gap-7 justify-around mx-auto flex flex-wrap">
-        {props.features.map((f) => (
+        {props.features.map((f, i) => (
           <>
-            <Feature title={f} />
+            <Feature title={f} key={i} />
           </>
         ))}
       </section>
