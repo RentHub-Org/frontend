@@ -27,16 +27,7 @@ import { links } from "./constants";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
-  const { data: session, status }: { data: any; status: string } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    const isLoggedIn = authenticate();
-
-    if (!isLoggedIn) {
-      router.push("/");
-    }
-  }, [status, router]);
+  const { data: session }: { data: any; status: string } = useSession();
 
   return (
     <div
@@ -83,7 +74,7 @@ function ProfileDropdown({ session }: { session: any }) {
   ) {
     return;
   }
-  
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -103,10 +94,10 @@ function ProfileDropdown({ session }: { session: any }) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem
-            className="bg-black w-max"
+            className="bg-black w-max hover:bg-rose-500"
             onSelect={() => {
               signOut();
-              redirect("/app");
+              redirect("/app/");
             }}
           >
             Logout
@@ -116,6 +107,7 @@ function ProfileDropdown({ session }: { session: any }) {
     </DropdownMenu>
   );
 }
+
 const Logo = () => {
   return (
     <Link
@@ -130,7 +122,7 @@ const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-extrabold text-2xl text-black dark:text-theme-5 whitespace-pre h-5"
       >
-        <span className="font-extrabold text-2xl text-black dark:text-theme-5 whitespace-pre h-5">
+        <span className="font-pixelfy font-extrabold text-2xl text-black dark:text-theme-5 whitespace-pre h-5">
           RentHub <span className="text-sm text-[#071a52]">BTFS</span>
         </span>
       </motion.span>

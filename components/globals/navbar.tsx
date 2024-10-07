@@ -32,7 +32,6 @@ const Navbar = ({ session }: Props) => {
   const [loading, setLoading] = useState(false);
   // console.log("wallt : ", window.tronWeb?.defaultAddress?.base58);
   const { disconnect } = useWallet();
-  
 
   const initSignin = async () => {
     setLoading(true);
@@ -123,13 +122,14 @@ const Navbar = ({ session }: Props) => {
         </ul>
         <aside className="flex items-center gap-4">
           <div className="hidden md:block">
-            {session.status === "authenticated" && window?.tronLink?.tronWeb.defaultAddress?.hex ? (
+            {session.status === "authenticated" &&
+            window?.tronLink?.tronWeb.defaultAddress?.hex ? (
               <div className="flex gap-1 items-center">
                 <Link
                   href="/app"
                   className="relative inline-flex h-10 overflow-hidden rounded-full p-[2px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
                 >
-                  <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#DCE1DE_0%,#216869_50%,#DCE1DE_100%)]" />
+                  <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#0061C6_0%,#216869_50%,#967CF8_100%)]" />{" "}
                   <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
                     Dashboard
                   </span>
@@ -175,7 +175,7 @@ const Navbar = ({ session }: Props) => {
                 disabled={loading}
                 className="relative inline-flex h-10 overflow-hidden rounded-full p-[2px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
               >
-                <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#DCE1DE_0%,#216869_50%,#DCE1DE_100%)]" />
+                <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#0061C6_0%,#216869_50%,#967CF8_100%)]" />{" "}
                 <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
                   {loading ? "Loading..." : "Signin/Signup"}
                 </span>

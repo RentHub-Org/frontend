@@ -120,9 +120,12 @@ export default function Component() {
               height={90}
               className="rounded-lg shadow-lg border border-theme-2"
             />
-            <h1 className="text-4xl md:text-6xl font-bold text-center my-16">
-              RentHub <span className="text-theme-3 text-lg">BTFS</span>
-            </h1>
+            <div className='my-6'>
+              <h1 className="font-pixelfy text-4xl md:text-6xl font-bold text-center ">
+                RentHub 
+              </h1>
+              <span className="text-theme-3 text-lg">BTFS</span>
+            </div>
           </div>
           <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
             <div className="w-full pt-4 flex flex-col items-center gap-4">
@@ -134,8 +137,7 @@ export default function Component() {
                 href="https://docs.renthub.cloud"
                 className="relative inline-flex h-10 overflow-hidden rounded-full p-[2px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
               >
-                <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#DCE1DE_0%,#216869_50%,#DCE1DE_100%)]" />
-                <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+                <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#0061C6_0%,#216869_50%,#967CF8_100%)]" />                <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
                   Visit Documentation
                 </span>
               </Link>

@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 import nextAuthOptions from "@/lib/utils/nextAuthOptions";
 
 export default async function Usage() {
-  const isLoggedIn = authenticate();
+  const isLoggedIn = await authenticate();
   const session = await getServerSession(nextAuthOptions);
   const userAddr = session?.address?.base56;
 
@@ -28,17 +28,16 @@ export default async function Usage() {
       where: {
         address: userAddr
       },
-      select: {
-        credits: true
-      }
     })
     .catch((err) => {
       console.error(err);
     });
 
   if (!isLoggedIn) {
-    redirect("/");
+    redirect("/app");
   }
+
+
 
   return (
     <main>
@@ -54,16 +53,16 @@ export default async function Usage() {
         </div>
         {/* graph */}
         <div>
-          <Chart userAddr={"TQymTayyt9pPbSUFZjisyuanAsePL76VyG"} />
+          <Chart userAddr={userAddr} />
         </div>
-        <div className="flex pt-16 flex-col gap-4">
+        {/* <div className="flex pt-16 flex-col gap-4">
           <h2 className="text-gray-300">
             Rent Now for Unlimited Storage on BTFS
           </h2>
           <button className="px-8 rounded-md w-[150px] bg-theme-3 text-white">
             Rent
           </button>
-        </div>
+        </div> */}
       </section>
     </main>
   );

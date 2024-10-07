@@ -74,7 +74,20 @@ export default function DevModalButton() {
     }
   }
   function handleFileSelectChange(event: any) {
-    setFile(event.target.files[0]);
+    const selectedFile = event.target.files[0];
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/json"];
+    const isAllowedType = allowedTypes.includes(selectedFile.type);
+    const isWithinSizeLimit = selectedFile.size <= 10 * 1024 * 1024;
+
+    if (!isAllowedType) {
+      toast.error(`Only ${allowedTypes.join(", ")} files are allowed.`);
+      return;
+    }
+    if (!isWithinSizeLimit) {
+      toast.error("File size must not exceed 10MB.");
+      return;
+    }
+    setFile(selectedFile);
   }
   console.log(file);
   return (
