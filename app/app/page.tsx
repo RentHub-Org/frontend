@@ -17,6 +17,7 @@ import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 import { init } from "next/dist/compiled/webpack/webpack";
 import { signIn, useSession } from "next-auth/react";
 import { AdapterName } from "@tronweb3/tronwallet-abstract-adapter";
+import nextAuthOptions from "@/lib/utils/nextAuthOptions";
 
 export default function Component() {
   const { connect, disconnect, select, connected } = useWallet();
@@ -27,75 +28,32 @@ export default function Component() {
   const [walletConnected, setWalletConnected] = useState(connected);
   const [signedIn, setSignedIn] = useState(false);
   useEffect(() => {
-    if (session.status == "authenticated") {
-      setSignedIn(true);
-      setCurrentStep(4);
-    }
-    if (window.tronLink === undefined) {
-      return;
-    }
-    if (!window.tronLink.ready) {
-      window.tronLink.request({ method: "tron_requestAccounts" });
+    if (window?.tronLink === undefined) return;
+    if (window?.tronLink) {
+      setWalletInstalled(true);
+      setCurrentStep(2);
       if (window.tronLink.tronWeb.defaultAddress) {
-        setWalletConnected(true);
-        setWalletInstalled(true);
-        setCurrentStep(2);
-      }
-    }
-  }, [window?.tronLink, session]);
-
-  console.log("");
-  const steps = [
-    { title: "Install Wallet", icon: Wallet },
-    { title: "Connect Wallet", icon: Link2 },
-    { title: "Sign Message", icon: CheckCircle2 }
-  ];
-  const check = () => {
-    if (window.tronLink === undefined) {
-      return;
-    } else {
-      setWalletInstalled(true);
-      setCurrentStep(2);
-    }
-    if (window.tronLink.ready) {
-      window.tronLink.request({ method: "tron_requestAccounts" });
-      setWalletInstalled(true);
-      setCurrentStep(2);
-      if (window.tronLink.tronWeb?.defaultAddress) {
         setWalletConnected(true);
         setCurrentStep(3);
       }
     }
-  };
-  const initSignin = async () => {
-    // const signature: String = await signMessage(address+":loggin_in_to_session");
-    if (window.tronLink === undefined) {
-      console.log("TronLink not found");
-      return;
-    }
-    if (!window.tronLink.ready) {
-      window.tronLink.request({ method: "tron_requestAccounts" });
-      return;
-    }
-    const message =
-      window.tronLink.tronWeb.defaultAddress?.base58 + ":logging_in_to_session";
-    const signature = await window.tronLink.tronWeb.trx.signMessageV2(message);
-    console.log("signature:", signature);
-    const res = await signIn("tronAuth", {
-      message,
-      signature,
-      redirect: false
-    });
-    console.log("signInres:", res);
 
-    if (res?.ok) {
-      // router.push("/app");
-      setSignedIn(true);
+    if (
+      window?.tronLink.tronWeb.defaultAddress &&
+      currentStep > 2 &&
+      session?.status === "authenticated"
+    ) {
       setCurrentStep(4);
-    } else {
-      console.error("Sign in failed");
+      setSignedIn(true);
     }
-  };
+  }, [
+    session,
+    window?.tronLink,
+    walletInstalled,
+    walletConnected,
+    currentStep
+  ]);
+
   const handleInstallWallet = () => {
     window.open(
       "https://chromewebstore.google.com/detail/tronlink/ibnejdfjmmkpcnlpebklmnkoeoihofec?hl=en",
@@ -103,7 +61,6 @@ export default function Component() {
     );
     if (window.tronLink === undefined) return;
     window?.tronLink.request({ method: "tron_requestAccounts" });
-    check();
   };
 
   const handleConnectWallet = async () => {
@@ -111,15 +68,45 @@ export default function Component() {
     await window.tronLink.request({ method: "tron_requestAccounts" });
     if (window.tronLink.tronWeb.defaultAddress) {
       setWalletConnected(true);
-      setCurrentStep(3);
+      setCurrentStep(2);
     }
-    check();
   };
 
-  const handleSignTransaction = () => {
-    initSignin();
-    check();
+  const handleSignTransaction = async () => {
+    if (window.tronLink === undefined) return;
+    const message =
+      window.tronLink.tronWeb.defaultAddress?.base58 + ":logging_in_to_session";
+    const signature = await window.tronLink.tronWeb.trx.signMessageV2(message);
+    const res = await signIn("tronAuth", {
+      message,
+      signature,
+      redirect: false
+    });
+    if (res?.ok) {
+      setCurrentStep(4);
+      setSignedIn(true);
+    } else {
+      console.error("Sign in failed");
+    }
   };
+
+  const steps = [
+    {
+      title: "Install/Unlock Wallet",
+      icon: Wallet,
+      onClick: handleInstallWallet
+    },
+    {
+      title: "Connect Wallet",
+      icon: Link2,
+      onClick: handleConnectWallet
+    },
+    {
+      title: "Sign Message",
+      icon: CheckCircle2,
+      onClick: handleSignTransaction
+    }
+  ];
 
   return (
     <>
@@ -218,12 +205,17 @@ export default function Component() {
                 </Button>
               )}
               {currentStep === 3 && (
-                <Button onClick={handleSignTransaction} disabled={signedIn}>
-                  {signedIn ? "Signed In" : "Sign Message"}
-                </Button>
-              )}
-              {signedIn && (
-                <p className="text-green-500 font-medium">Login Successful!</p>
+                <>
+                  {signedIn ? (
+                    <p className="text-green-500 font-medium">
+                      Login Successful!
+                    </p>
+                  ) : (
+                    <Button onClick={handleSignTransaction} disabled={signedIn}>
+                      {signedIn ? "Login Successful!" : "Sign Message"}
+                    </Button>
+                  )}
+                </>
               )}
             </CardFooter>
           </Card>

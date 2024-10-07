@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import NEXT_OPTIONS from "../../../lib/utils/nextAuthOptions";
 import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 type SessionPayload = {
   address: {
@@ -42,8 +43,7 @@ export default async function DashBoard() {
 
   if (data == null) {
     redirect("/app");
-  }
-  const THE_FILES = await prisma.file
+  }  const THE_FILES = await prisma.file
     .findMany({
       where: {
         createdBy_email: data.address.base56

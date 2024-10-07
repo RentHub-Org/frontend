@@ -50,7 +50,7 @@ export default async function Usage() {
         <div className="flex pb-14 max-w-[1100px] flex-grow flex-wrap gap-6 pr-10">
           <Box title="Files Stored" value={Number(files?.rentedFiles?.length) | 0} />
           <Box title="Credits Balance" value={Number(credits?.credits) | 0} />
-          <Box title="Credits Purchased" value={1000} />
+          {/* <Box title="Credits Purchased" value={1000} /> */}
         </div>
         {/* graph */}
         <div>

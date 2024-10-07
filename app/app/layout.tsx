@@ -7,18 +7,23 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../../components/ui/sidebar";
 // import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { links } from "./constants";
+import { CopyAddr } from "@/components/globals/navbar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import {
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuSeparator
+} from "@radix-ui/react-dropdown-menu";
+import { signOut, useSession } from "next-auth/react";
+import { redirect, useRouter } from "next/navigation";
 import { authenticate } from "./actions/authenticate";
-import { DropdownMenuGroup, DropdownMenuLabel, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
+import { links } from "./constants";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -67,29 +72,43 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-function sliceAdd(add:string){
+function sliceAdd(add: string) {
   if (!add) return "";
   return add.slice(0, 6) + "..." + add.slice(-6);
 }
 function ProfileDropdown({ session }: { session: any }) {
-  const router = useRouter();
-
+  if (
+    session?.status != "authenticated" &&
+    !window?.tronLink?.tronWeb.defaultAddress?.hex
+  ) {
+    return;
+  }
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avvvatars style="shape" value={session?.address?.hex} />
+        <Avvvatars
+          style="shape"
+          value={String(window?.tronLink?.tronWeb.defaultAddress?.hex)}
+        />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-48">
-        <DropdownMenuLabel>{sliceAdd(session?.address?.hex)}</DropdownMenuLabel>
+      <DropdownMenuContent className="w-max p-2 mr-20">
+        <DropdownMenuLabel>
+          <CopyAddr
+            address={sliceAdd(
+              window?.tronLink?.tronWeb.defaultAddress?.hex as string
+            )}
+          />
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-
           <DropdownMenuItem
+            className="bg-black w-max"
             onSelect={() => {
               signOut();
-              router.push("/");
+              redirect("/app");
             }}
-            >
+          >
             Logout
           </DropdownMenuItem>
         </DropdownMenuGroup>

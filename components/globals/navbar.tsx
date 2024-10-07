@@ -5,13 +5,21 @@ import { MenuIcon } from "lucide-react";
 import Avvvatars from "avvvatars-react";
 import CenterWrap from "./centerwrap";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { DropdownMenu, DropdownMenuGroup, DropdownMenuLabel, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuSeparator
+} from "@radix-ui/react-dropdown-menu";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "../ui/dropdown-menu";
 import { redirect } from "next/navigation";
+import { useCopyToClipboard } from "usehooks-ts";
+import { toast } from "sonner";
+import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 
 type Props = {
   session: {
@@ -22,23 +30,26 @@ type Props = {
 
 const Navbar = ({ session }: Props) => {
   const [loading, setLoading] = useState(false);
+  // console.log("wallt : ", window.tronWeb?.defaultAddress?.base58);
+  const { disconnect } = useWallet();
+  
 
   const initSignin = async () => {
     setLoading(true);
     try {
       // const signature: String = await signMessage(address+":loggin_in_to_session");
-      if (window.tronLink === undefined) {
-        console.log("TronLink not found");
-        return;
+      try {
+        if (window.tronWeb && !window?.tronWeb?.defaultAddress?.base58) {
+          alert("Please unlock/install TronLink to connect your wallet.");
+        }
+      } catch (error) {
+        console.error("Error connecting TronLink:", error);
       }
-      if (!window.tronLink.ready) {
-        window.tronLink.request({ method: "tron_requestAccounts" });
-        return;
-      }
+
       const message =
-        window.tronLink.tronWeb.defaultAddress?.base58 +
+        window?.tronLink?.tronWeb?.defaultAddress?.base58 +
         ":logging_in_to_session";
-      const signature = await window.tronLink.tronWeb.trx.signMessageV2(
+      const signature = await window?.tronLink?.tronWeb.trx.signMessageV2(
         message
       );
       console.log("signature:", signature);
@@ -72,9 +83,9 @@ const Navbar = ({ session }: Props) => {
     }
     setAddress(window.tronLink.tronWeb.defaultAddress?.base58 || "");
   }, []);
-  function sliceAdd(add:string){
-    if(!add)return "";  
-    return add.slice(0, 6) + "..." + add.slice(-6);
+  function sliceAdd(add: string) {
+    if (!add) return "";
+    return add.slice(0, 6) + "..." + add.slice(-4);
   }
   return (
     <header className="py-5 right-0 w-full bg-base-1 flex items-center border-b-[1px] border-neutral-900 justify-between">
@@ -112,7 +123,7 @@ const Navbar = ({ session }: Props) => {
         </ul>
         <aside className="flex items-center gap-4">
           <div className="hidden md:block">
-            {session.status === "authenticated" ? (
+            {session.status === "authenticated" && window?.tronLink?.tronWeb.defaultAddress?.hex ? (
               <div className="flex gap-1 items-center">
                 <Link
                   href="/app"
@@ -126,22 +137,35 @@ const Navbar = ({ session }: Props) => {
 
                 <DropdownMenu>
                   <DropdownMenuTrigger>
-                    <Avvvatars style="shape" value={String(window?.tronLink?.tronWeb.defaultAddress?.hex)} />
+                    <Avvvatars
+                      style="shape"
+                      value={String(
+                        window?.tronLink?.tronWeb.defaultAddress?.hex
+                      )}
+                    />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-48">
-                  <DropdownMenuLabel>{sliceAdd(window?.tronLink?.tronWeb.defaultAddress?.hex as string)}</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
-
-                    <DropdownMenuItem
-                      onSelect={() => {
-                        signOut();
-                        redirect("/");
-                      }}
+                  <DropdownMenuContent className="w-max p-2 mr-20">
+                    <DropdownMenuLabel>
+                      <CopyAddr
+                        address={sliceAdd(
+                          window?.tronLink?.tronWeb.defaultAddress
+                            ?.hex as string
+                        )}
+                      />
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem
+                        className="bg-black w-max"
+                        onSelect={() => {
+                          signOut();
+                          disconnect();
+                          redirect("/");
+                        }}
                       >
-                      Logout
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
+                        Logout
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -166,3 +190,70 @@ const Navbar = ({ session }: Props) => {
 };
 
 export default Navbar;
+
+export const CopyAddr = ({ address }: { address: string }) => {
+  const [copiedText, copy] = useCopyToClipboard();
+
+  const handleCopy = (text: string) => () => {
+    console.log("sdfsdf");
+    copy(text)
+      .then(() => {
+        toast.info("address copied !");
+        console.log("Copied!", { text });
+      })
+      .catch((error) => {
+        console.error("Failed to copy!", error);
+      });
+  };
+
+  return (
+    <div className="w-full max-w-[16rem]">
+      <div className="relative">
+        <label htmlFor="npm-install-copy-button" className="sr-only">
+          {address}
+        </label>
+        <input
+          id="npm-install-copy-button"
+          type="text"
+          className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          value={address}
+          disabled
+          readOnly
+        />
+        <button
+          className="absolute end-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg p-2 inline-flex items-center justify-center"
+          onClick={handleCopy(address)}
+        >
+          <span id="default-icon">
+            <svg
+              className="w-3.5 h-3.5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 18 20"
+            >
+              <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+            </svg>
+          </span>
+          <span id="success-icon" className="hidden items-center">
+            <svg
+              className="w-3.5 h-3.5 text-blue-700 dark:text-blue-500"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 16 12"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 5.917 5.724 10.5 15 1.5"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  );
+};
