@@ -1,11 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import DevSection from "./components/devsection";
-import RentalSection from "./components/rentalsection";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
-import NEXT_OPTIONS from "../../../lib/utils/nextAuthOptions";
 import { redirect } from "next/navigation";
-import { toast } from "sonner";
+import NEXT_OPTIONS from "../../../lib/utils/nextAuthOptions";
+import DevSection from "./components/devsection";
+import RentalSection from "./components/rentalsection";
 
 type SessionPayload = {
   address: {

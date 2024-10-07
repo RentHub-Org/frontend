@@ -1,17 +1,16 @@
 "use client";
-import { IconAsterisk } from "@tabler/icons-react";
-import DevModalButton from "./devModal";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow
 } from "@/components/ui/table";
+import { IconAsterisk } from "@tabler/icons-react";
 import { ReactNode, useEffect, useState } from "react";
 import { File } from "../page";
+import DevModalButton from "./devModal";
 
 export default function DevSection({ files }: { files: File[] }) {
   const [isLargeScreen, setIsLargeScreen] = useState(false);

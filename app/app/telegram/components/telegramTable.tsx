@@ -1,22 +1,18 @@
 'use client'
-import { TelegramEndPoints } from "@prisma/client";
 import {
     Table,
     TableBody,
     TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
-    TableRow,
-  } from "@/components/ui/table"
-import { Delete } from "lucide-react";
-import { IconTrashXFilled } from "@tabler/icons-react";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
+    TableRow
+} from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import { TelegramEndPoints } from "@prisma/client";
+import { IconTrashXFilled } from "@tabler/icons-react";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useState } from "react";
 
 type SessionProp = {
     user: {

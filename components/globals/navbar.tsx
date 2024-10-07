@@ -1,25 +1,24 @@
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { MenuIcon } from "lucide-react";
-import Avvvatars from "avvvatars-react";
-import CenterWrap from "./centerwrap";
-import { signIn, signOut, useSession } from "next-auth/react";
 import {
   DropdownMenu,
   DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuSeparator
 } from "@radix-ui/react-dropdown-menu";
+import Avvvatars from "avvvatars-react";
+import { MenuIcon } from "lucide-react";
+import { signIn, signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { useCopyToClipboard } from "usehooks-ts";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "../ui/dropdown-menu";
-import { redirect } from "next/navigation";
-import { useCopyToClipboard } from "usehooks-ts";
-import { toast } from "sonner";
-import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
+import CenterWrap from "./centerwrap";
 
 type Props = {
   session: {
@@ -30,8 +29,6 @@ type Props = {
 
 const Navbar = ({ session }: Props) => {
   const [loading, setLoading] = useState(false);
-  // console.log("wallt : ", window.tronWeb?.defaultAddress?.base58);
-  const { disconnect } = useWallet();
 
   const initSignin = async () => {
     setLoading(true);
@@ -51,7 +48,6 @@ const Navbar = ({ session }: Props) => {
       const signature = await window?.tronLink?.tronWeb.trx.signMessageV2(
         message
       );
-      console.log("signature:", signature);
       const res = await signIn("tronAuth", {
         message,
         signature,
@@ -159,7 +155,6 @@ const Navbar = ({ session }: Props) => {
                         className="bg-black w-max"
                         onSelect={() => {
                           signOut();
-                          disconnect();
                           redirect("/");
                         }}
                       >

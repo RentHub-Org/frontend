@@ -1,9 +1,9 @@
+import prisma from "@/lib/prisma";
+import nextAuthOptions from "@/lib/utils/nextAuthOptions";
+import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authenticate } from "../actions/authenticate";
 import Chart from "./Chart";
-import prisma from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import nextAuthOptions from "@/lib/utils/nextAuthOptions";
 
 export default async function Usage() {
   const isLoggedIn = await authenticate();

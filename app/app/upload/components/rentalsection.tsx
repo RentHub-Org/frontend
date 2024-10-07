@@ -1,5 +1,4 @@
 "use client";
-import { IconAsterisk } from "@tabler/icons-react";
 import {
   Table,
   TableBody,
@@ -8,9 +7,10 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
+import { IconAsterisk } from "@tabler/icons-react";
 import { ReactNode, useEffect, useState } from "react";
-import RentalModalButton from "./rentalModal";
 import { File } from "../page";
+import RentalModalButton from "./rentalModal";
 
 export default function RentalSection({ files }: { files: File[] }) {
   const [isLargeScreen, setIsLargeScreen] = useState(false);

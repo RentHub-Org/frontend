@@ -12,8 +12,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { IconUpload } from "@tabler/icons-react"
-import { useState } from "react"
 import axios from "axios"
+import { useState } from "react"
 import { toast } from "sonner"
 
 export default function RentalModalButton() {

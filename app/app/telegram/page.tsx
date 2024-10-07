@@ -1,12 +1,11 @@
-import { getServerSession } from "next-auth";
+import prisma from "@/lib/prisma";
+import { cn } from "@/lib/utils";
 import nextAuthOptions from "@/lib/utils/nextAuthOptions";
-import * as React from "react";
+import { IconExclamationMark } from "@tabler/icons-react";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import AddTelegramCard from "./components/addtelegramcard";
 import TelegramTable from "./components/telegramTable";
-import { IconExclamationMark } from "@tabler/icons-react";
-import { cn } from "@/lib/utils";
-import prisma from "@/lib/prisma";
-import { redirect } from "next/navigation";
 
 async function getUser() {
   const session = await getServerSession(nextAuthOptions);
@@ -23,7 +22,6 @@ export default async function Telegram() {
       nameHolder: session.address.base56
     }
   });
-  console.log(telegrams);
 
   return (
     <>
@@ -44,7 +42,6 @@ export default async function Telegram() {
 }
 
 function DescriptiveContent({ state }: { state: boolean }) {
-  console.log(state);
   return (
     <div
       className={cn(

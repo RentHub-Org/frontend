@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,14 +9,12 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import { Wallet, CheckCircle2, Link2 } from "lucide-react";
+import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
+import { CheckCircle2, Link2, Wallet } from "lucide-react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
-import { init } from "next/dist/compiled/webpack/webpack";
-import { signIn, useSession } from "next-auth/react";
-import { AdapterName } from "@tronweb3/tronwallet-abstract-adapter";
-import nextAuthOptions from "@/lib/utils/nextAuthOptions";
+import { useEffect, useState } from "react";
 
 export default function Component() {
   const { connect, disconnect, select, connected } = useWallet();

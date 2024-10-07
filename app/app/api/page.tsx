@@ -1,8 +1,8 @@
 import nextAuthOptions from "@/lib/utils/nextAuthOptions";
 import { getServerSession } from "next-auth";
 
-import { ApiKeysTable } from "./components/apikeytables";
 import { redirect } from "next/navigation";
+import { ApiKeysTable } from "./components/apikeytables";
 
 type SessionPayload = {
     address : {
