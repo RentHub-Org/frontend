@@ -68,10 +68,7 @@ function sliceAdd(add: string) {
   return add.slice(0, 6) + "..." + add.slice(-6);
 }
 function ProfileDropdown({ session }: { session: any }) {
-  if (
-    session?.status != "authenticated" &&
-    !window?.tronLink?.tronWeb.defaultAddress?.hex
-  ) {
+  if (session?.status == null) {
     return;
   }
 
