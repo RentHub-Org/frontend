@@ -99,21 +99,26 @@ const Navbar = ({ session }: Props) => {
         </aside>
         <ul className="hidden md:flex font-bold items-center gap-6 list-none">
           <li>
-            <Link href="#">Features</Link>
+            <Link href="/#features">Features</Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="#">Pricing</Link>
-          </li>
+          </li> */}
           <li>
-            <Link href="https://docs.renthub.cloud">Docs</Link>
-          </li>
-          <li>
-            <Link href="https://www.npmjs.com/package/@ellumina/renthub-btfs">
-              SDK Link
+            <Link target="_blank" href="https://docs.renthub.cloud">
+              Docs
             </Link>
           </li>
           <li>
-            <Link href="#">About</Link>
+            <Link
+              target="_blank"
+              href="https://www.npmjs.com/package/@ellumina/renthub-btfs"
+            >
+              SDK
+            </Link>
+          </li>
+          <li>
+            <Link href="/#faq">FAQ</Link>
           </li>
         </ul>
         <aside className="flex items-center gap-4">
