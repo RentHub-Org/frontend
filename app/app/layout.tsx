@@ -1,29 +1,15 @@
 "use client";
 
-import Avvvatars from "avvvatars-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../../components/ui/sidebar";
 // import Image from "next/image";
-import { CopyAddr } from "@/components/globals/navbar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import {
-  DropdownMenuGroup,
-  DropdownMenuLabel,
-  DropdownMenuSeparator
-} from "@radix-ui/react-dropdown-menu";
-import { signOut, useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
-import { authenticate } from "./actions/authenticate";
+import { useSession } from "next-auth/react";
 import { links } from "./constants";
+import ProfileDropdown from "@/components/ui/profileDropdown";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -61,47 +47,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </div>
     </div>
-  );
-}
-function sliceAdd(add: string) {
-  if (!add) return "";
-  return add.slice(0, 6) + "..." + add.slice(-6);
-}
-function ProfileDropdown({ session }: { session: any }) {
-  if (session?.status == null) {
-    return;
-  }
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Avvvatars
-          style="shape"
-          value={String(window?.tronLink?.tronWeb.defaultAddress?.hex)}
-        />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-max p-2 mr-20">
-        <DropdownMenuLabel>
-          <CopyAddr
-            address={sliceAdd(
-              window?.tronLink?.tronWeb.defaultAddress?.hex as string
-            )}
-          />
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem
-            className="bg-black w-max hover:bg-rose-500"
-            onSelect={() => {
-              signOut();
-              redirect("/app/");
-            }}
-          >
-            Logout
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
   );
 }
 

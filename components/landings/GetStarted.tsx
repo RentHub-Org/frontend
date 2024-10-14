@@ -35,14 +35,14 @@ const GetStarted = () => {
           title="SDK"
           description="Add effortless uploads to any app with our typescript SDK."
           command="npm install @ellumina/renthub-btfs"
-          link="https://forum.trondao.org/t/renthub-btfs-the-one-stop-solution-to-your-btfs-needs/27072?u=arman"
+          link="https://www.npmjs.com/package/@ellumina/renthub-btfs"
           Icon={MessageSquareShare}
         />
         <ThemeCard
           title="Forum"
           description="Check out forum to ask questions and find resources for common questions."
-          link="https://www.npmjs.com/package/@ellumina/renthub-btfs"
           Icon={CodeXml}
+          link="https://forum.trondao.org/t/renthub-btfs-the-one-stop-solution-to-your-btfs-needs/27072?u=arman"
         />
       </section>
     </main>

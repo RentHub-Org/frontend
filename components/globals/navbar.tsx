@@ -34,13 +34,7 @@ const Navbar = ({ session }: Props) => {
     setLoading(true);
     try {
       // const signature: String = await signMessage(address+":loggin_in_to_session");
-      try {
-        if (window.tronWeb && !window?.tronWeb?.defaultAddress?.base58) {
-          alert("Please unlock/install TronLink to connect your wallet.");
-        }
-      } catch (error) {
-        console.error("Error connecting TronLink:", error);
-      }
+      await window?.tronLink?.request({ method: "tron_requestAccounts" });
 
       const message =
         window?.tronLink?.tronWeb?.defaultAddress?.base58 +
@@ -53,7 +47,6 @@ const Navbar = ({ session }: Props) => {
         signature,
         redirect: false
       });
-      console.log("signInres:", res);
 
       if (res?.ok) {
         // router.push("/app");
@@ -61,23 +54,13 @@ const Navbar = ({ session }: Props) => {
         console.error("Sign in failed");
       }
     } catch (error) {
+      alert("Please install TronLink to connect your wallet.");
       console.error("Error while signing in:", error);
     } finally {
       setLoading(false);
     }
   };
-  const [address, setAddress] = useState("");
-  useEffect(() => {
-    if (window.tronLink === undefined) {
-      console.log("TronLink not found");
-      return;
-    }
-    if (!window.tronLink.ready) {
-      window.tronLink.request({ method: "tron_requestAccounts" });
-      return;
-    }
-    setAddress(window.tronLink.tronWeb.defaultAddress?.base58 || "");
-  }, []);
+
   function sliceAdd(add: string) {
     if (!add) return "";
     return add.slice(0, 6) + "..." + add.slice(-4);
@@ -195,7 +178,6 @@ export const CopyAddr = ({ address }: { address: string }) => {
   const [copiedText, copy] = useCopyToClipboard();
 
   const handleCopy = (text: string) => () => {
-    console.log("sdfsdf");
     copy(text)
       .then(() => {
         toast.info("address copied !");

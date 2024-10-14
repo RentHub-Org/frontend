@@ -45,7 +45,6 @@ export default function Component() {
     }
   }, [
     session,
-    window?.tronLink,
     walletInstalled,
     walletConnected,
     currentStep
