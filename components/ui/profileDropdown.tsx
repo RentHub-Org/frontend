@@ -23,28 +23,30 @@ function ProfileDropdown({ session }: { session: any }) {
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Avvvatars style="shape" value={String(session?.address?.base56)} />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-max p-2 mr-20">
-        <DropdownMenuLabel>
-          <CopyAddr address={sliceAdd(session?.address?.base56 as string)} />
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem
-            className="bg-black w-max hover:bg-rose-500"
-            onSelect={() => {
-              signOut();
-              redirect("/app/");
-            }}
-          >
-            Logout
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <main className="z-[500]">
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Avvvatars style="shape" value={String(session?.address?.base56)} />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-max p-2 mr-20">
+          <DropdownMenuLabel>
+            <CopyAddr address={sliceAdd(session?.address?.base56 as string)} />
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <DropdownMenuItem
+              className="bg-black w-max hover:bg-rose-500"
+              onSelect={() => {
+                signOut();
+                redirect("/app/");
+              }}
+            >
+              Logout
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </main>
   );
 }
 

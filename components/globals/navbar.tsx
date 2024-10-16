@@ -76,7 +76,7 @@ const Navbar = ({ session }: Props) => {
             alt="fuzzie logo"
             className="shadow-sm mb-2"
           />
-          <p className="text-4xl font-pixelfy font-bold">
+          <p className="text-4xl max-sm:text-2xl font-pixelfy font-bold">
             RentHub <span className="text-btfs text-sm">BTFS</span>
           </p>
         </aside>
@@ -105,7 +105,7 @@ const Navbar = ({ session }: Props) => {
           </li>
         </ul>
         <aside className="flex items-center gap-4">
-          <div className="hidden md:block">
+          <div className="md:block">
             {session.status === "authenticated" &&
             window?.tronLink?.tronWeb.defaultAddress?.hex ? (
               <div className="flex gap-1 items-center">
@@ -165,7 +165,6 @@ const Navbar = ({ session }: Props) => {
               </button>
             )}
           </div>
-          <MenuIcon className="md:hidden" />
         </aside>
       </CenterWrap>
     </header>

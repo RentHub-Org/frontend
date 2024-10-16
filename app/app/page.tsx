@@ -106,7 +106,7 @@ export default function Component() {
 
   return (
     <>
-      <div className="relative h-screen flex items-center justify-center gap-5 p-6 overflow-hidden">
+      <div className="relative h-screen flex max-sm:flex-col max-sm:justify-start items-center justify-center md:gap-5 p-6 overflow-hidden">
         <div className="flex flex-col items-center">
           <div className="flex justify-center gap-3 items-center">
             <Image
@@ -123,7 +123,7 @@ export default function Component() {
               <span className="text-theme-3 text-lg">BTFS</span>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:mb-12">
             <div className="w-full pt-4 flex flex-col items-center gap-4">
               <p className="text-xl md:text-left">
                 Visit the docs to begin integrating RentHub BTFS into your
@@ -140,7 +140,7 @@ export default function Component() {
             </div>
           </div>
         </div>
-        <div className="min-h-screen  flex items-center justify-center">
+        <div className="md:min-h-screen max-sm:mt-10 flex items-center justify-center">
           <Card className="w-[350px]">
             <CardHeader>
               <CardTitle className="flex gap-2 items-center">
