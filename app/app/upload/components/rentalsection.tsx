@@ -30,7 +30,7 @@ export default function RentalSection({ files }: { files: File[] }) {
   }, []);
   const propDril = { isLargeScreen, isMobileScreen };
   return (
-    <div className="px-[40px]">
+    <div className="md:px-[40px]">
       <div className="flex justify-between w-full">
         <div className="flex gap-1 items-center text-[#bab9b9]">
           <IconAsterisk className="text-theme-3" size={10} />
