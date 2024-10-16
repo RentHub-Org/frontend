@@ -1,5 +1,5 @@
-'use client'    // This is a comment
-import { Button } from "@/components/ui/button"
+"use client"; // This is a comment
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -7,82 +7,94 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { IconUpload } from "@tabler/icons-react"
-import axios from "axios"
-import { useState } from "react"
-import { toast } from "sonner"
+  DialogTrigger
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { IconUpload } from "@tabler/icons-react";
+import axios from "axios";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export default function RentalModalButton() {
-  const [ days , setDays ] = useState<number>(31);
-  const [ file, setFile ] = useState<File | null>(null);
+  const [days, setDays] = useState<number>(31);
+  const [file, setFile] = useState<File | null>(null);
   const signMessageWithTimeConstrain = async () => {
-    if(window.tronLink === undefined){
-        throw new Error("TronLink not found");
+    if (window.tronLink === undefined) {
+      throw new Error("TronLink not found");
     }
-    if(!window.tronLink.ready){
-        window.tronLink.request({ method: 'tron_requestAccounts' });
-        return;
-    }
-    const sigValidTill = BigInt(Date.now() + 30000).toString(); //30 seconds validity for sig
-    const message = window.tronLink.tronWeb.defaultAddress?.base58 + ":"+ sigValidTill;
-    const signature = await window.tronLink.tronWeb.trx.signMessageV2(message);
-    console.log("signature:",signature);
-    return {message: message, signature: signature};
-  }
-  async function uploadHandle(){
-    //checks
-    if(file == null){
-      toast.info("Please select a file to upload.");
+    if (!window.tronLink.ready) {
+      window.tronLink.request({ method: "tron_requestAccounts" });
       return;
     }
-    if(!days || days<31){
-      toast.info("Please enter the days for which you want to rent the node.");
+    const sigValidTill = BigInt(Date.now() + 30000).toString(); //30 seconds validity for sig
+    const message =
+      window.tronLink.tronWeb.defaultAddress?.base58 + ":" + sigValidTill;
+    const signature = await window.tronLink.tronWeb.trx.signMessageV2(message);
+    console.log("signature:", signature);
+    return { message: message, signature: signature };
+  };
+  async function uploadHandle() {
+    //checks
+    if (file == null) {
+      toast.error("Please select a file to upload.");
+      return;
+    }
+    if (!days || days < 31) {
+      toast.error("Please enter the days for which you want to rent the node.");
       return;
     }
     const formdata = new FormData();
-    try{
-      const data: { message: string; signature: string } = await signMessageWithTimeConstrain() as { message: string; signature: string };
+    try {
+      const data: { message: string; signature: string } =
+        (await signMessageWithTimeConstrain()) as {
+          message: string;
+          signature: string;
+        };
       formdata.append("file", file, file.name);
       var config = {
-        method: 'post',
+        method: "post",
         url: `${process.env.NEXT_PUBLIC_CORE_BASE_URL}/tronSig/upload?to-blockchain=true&days=${days}`,
-        headers: { 
-          'tron_message': data.message, 
-          'tron_signature': data.signature, 
-          'Content-Type': 'multipart/form-data',
+        headers: {
+          tron_message: data.message,
+          tron_signature: data.signature,
+          "Content-Type": "multipart/form-data"
         },
-        data : formdata
+        data: formdata
       };
-      try{
+      try {
         const response = await axios(config);
-        console.log("response baby:",response.data);
+        console.log("response baby:", response.data);
         toast.success("Uploded!!");
-      }catch(err:any){
+      } catch (err: any) {
         toast.error(err.response.data.message);
       }
-    }catch(err){
+    } catch (err) {
       toast.error("Error while uploding the file. Please try again later.");
-      console.log("ERROR:",err);
+      console.log("ERROR:", err);
     }
   }
 
-  function handleFileSelectChange(event: any){
+  function handleFileSelectChange(event: any) {
     setFile(event.target.files[0]);
   }
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="dark:bg-theme-3 hover:dark:bg-theme-4 h-[30px] flex items-center gap-1"><IconUpload size={20}/>Upload</Button>
+        <Button
+          variant="outline"
+          className="dark:bg-theme-3 hover:dark:bg-theme-4 h-[30px] flex items-center gap-1"
+        >
+          <IconUpload size={20} />
+          Upload
+        </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-black">
         <DialogHeader>
           <DialogTitle>Upload to Rental</DialogTitle>
           <DialogDescription>
-            Not sure what are the fields here, checkout the tutorials for this section.
+            Not sure what are the fields here, checkout the tutorials for this
+            section.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -107,14 +119,18 @@ export default function RentalModalButton() {
               min={31}
               placeholder="Atleast 31 days"
               type="number"
-              onChange={(e:any)=>{setDays(e.target.value)}}
+              onChange={(e: any) => {
+                setDays(e.target.value);
+              }}
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={uploadHandle} disabled={ file == null || !days || days < 31 }>upload</Button>
+          <Button type="submit" onClick={uploadHandle}>
+            upload
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

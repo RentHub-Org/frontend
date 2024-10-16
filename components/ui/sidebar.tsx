@@ -146,6 +146,7 @@ export const MobileSidebar = ({
                 duration: 0.3,
                 ease: "easeInOut"
               }}
+              onClick={() => setOpen(false)}
               className={cn(
                 "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-30 flex flex-col justify-between",
                 className

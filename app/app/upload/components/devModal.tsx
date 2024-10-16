@@ -37,7 +37,7 @@ export default function DevModalButton() {
   async function handleUpload() {
     //we uploading the file bro...
     if (file == null) {
-      toast.info("Please select a file to upload.");
+      toast.error("Please select a file to upload.");
       return;
     }
     const formdata = new FormData();
@@ -75,7 +75,12 @@ export default function DevModalButton() {
   }
   function handleFileSelectChange(event: any) {
     const selectedFile = event.target.files[0];
-    const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/json"];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/jpg",
+      "application/json"
+    ];
     const isAllowedType = allowedTypes.includes(selectedFile.type);
     const isWithinSizeLimit = selectedFile.size <= 10 * 1024 * 1024;
 
@@ -101,7 +106,7 @@ export default function DevModalButton() {
           Add
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-black">
         <DialogHeader>
           <DialogTitle>Add to Dev-enviourment</DialogTitle>
           <DialogDescription>
@@ -124,7 +129,7 @@ export default function DevModalButton() {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleUpload} disabled={file == null}>
+          <Button type="submit" onClick={handleUpload}>
             upload
           </Button>
         </DialogFooter>
