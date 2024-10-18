@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import LoaderButton from "@/components/ui/LoaderButton";
 import { IconPlus } from "@tabler/icons-react";
 import axios from "axios";
 import { useState } from "react";
@@ -19,6 +20,8 @@ import { toast } from "sonner";
 export default function DevModalButton() {
   const [file, setFile] = useState<File | null>(null);
   const [dialogTrigger, setDialogTrigger] = useState<Boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const signMessageWithTimeConstrain = async () => {
     if (window.tronLink === undefined) {
       throw new Error("TronLink not found");
@@ -41,6 +44,7 @@ export default function DevModalButton() {
       return;
     }
     const formdata = new FormData();
+    setIsLoading(true);
     try {
       const data: { message: string; signature: string } =
         (await signMessageWithTimeConstrain()) as {
@@ -70,6 +74,7 @@ export default function DevModalButton() {
       }
       toast.error(err?.response?.data.message as String);
     } finally {
+      setIsLoading(false);
       setDialogTrigger(false);
     }
   }
@@ -129,9 +134,13 @@ export default function DevModalButton() {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleUpload}>
-            upload
-          </Button>
+          {isLoading ? (
+            <LoaderButton />
+          ) : (
+            <Button type="submit" onClick={handleUpload}>
+              upload
+            </Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>

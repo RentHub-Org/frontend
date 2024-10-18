@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import LoaderButton from "@/components/ui/LoaderButton";
 import { IconUpload } from "@tabler/icons-react";
 import axios from "axios";
 import { useState } from "react";
@@ -19,6 +20,8 @@ import { toast } from "sonner";
 export default function RentalModalButton() {
   const [days, setDays] = useState<number>(31);
   const [file, setFile] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const signMessageWithTimeConstrain = async () => {
     if (window.tronLink === undefined) {
       throw new Error("TronLink not found");
@@ -44,6 +47,9 @@ export default function RentalModalButton() {
       toast.error("Please enter the days for which you want to rent the node.");
       return;
     }
+
+    setIsLoading(true);
+
     const formdata = new FormData();
     try {
       const data: { message: string; signature: string } =
@@ -72,6 +78,8 @@ export default function RentalModalButton() {
     } catch (err) {
       toast.error("Error while uploding the file. Please try again later.");
       console.log("ERROR:", err);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -126,9 +134,13 @@ export default function RentalModalButton() {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={uploadHandle}>
-            upload
-          </Button>
+          {isLoading ? (
+            <LoaderButton />
+          ) : (
+            <Button type="submit" onClick={uploadHandle}>
+              upload
+            </Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
