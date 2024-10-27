@@ -42,7 +42,8 @@ export default async function DashBoard() {
 
   if (data == null) {
     redirect("/app");
-  }  const THE_FILES = await prisma.file
+  }
+  const THE_FILES = await prisma.file
     .findMany({
       where: {
         createdBy_email: data.address.base56

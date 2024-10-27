@@ -9,10 +9,9 @@ const roboto_init = Roboto({
 const pixelfy_init = Pixelify_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  variable: "--font-pixelfy"
+  variable: "--font-pixelfy",
+  display: "swap"
 });
-
-
 
 export const roboto = roboto_init.variable;
 export const pixelfy = pixelfy_init.variable;

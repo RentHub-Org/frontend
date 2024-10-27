@@ -27,7 +27,7 @@ export default {
                 address: sigAddress,
                 creditUsage: {
                   create: {
-                    credits: 0
+                    credits: 50000
                   }
                 }
               },
