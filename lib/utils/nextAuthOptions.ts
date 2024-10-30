@@ -25,9 +25,10 @@ export default {
               where: { address: sigAddress },
               create: {
                 address: sigAddress,
+                credits: 10000,
                 creditUsage: {
                   create: {
-                    credits: 50000
+                    credits: 10000
                   }
                 }
               },

@@ -43,6 +43,8 @@ export default function RentalModalButton() {
       toast.error("Please select a file to upload.");
       return;
     }
+
+    console.log(file);
     if (!days || days < 31) {
       toast.error("Please enter the days for which you want to rent the node.");
       return;
@@ -60,7 +62,11 @@ export default function RentalModalButton() {
       formdata.append("file", file, file.name);
       var config = {
         method: "post",
-        url: `${process.env.NEXT_PUBLIC_CORE_BASE_URL}/tronSig/upload?to-blockchain=true&days=${days}`,
+        url: `${
+          process.env.NEXT_PUBLIC_CORE_BASE_URL
+        }/tronSig/upload?to-blockchain=true&days=${days}&fileSize=${
+          file.size / 1024
+        }`,
         headers: {
           tron_message: data.message,
           tron_signature: data.signature,
