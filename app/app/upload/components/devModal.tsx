@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import LoaderButton from "@/components/ui/LoaderButton";
 import { IconPlus } from "@tabler/icons-react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -21,6 +22,8 @@ export default function DevModalButton() {
   const [file, setFile] = useState<File | null>(null);
   const [dialogTrigger, setDialogTrigger] = useState<Boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const signMessageWithTimeConstrain = async () => {
     if (window.tronLink === undefined) {
@@ -66,6 +69,8 @@ export default function DevModalButton() {
       );
       console.log(response.data);
       toast.success("Uploded !!");
+
+      router.refresh();
     } catch (err: any) {
       console.error("Error:", err);
       if (err?.response === null || !err?.response) {

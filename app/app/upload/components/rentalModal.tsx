@@ -14,13 +14,18 @@ import { Label } from "@/components/ui/label";
 import LoaderButton from "@/components/ui/LoaderButton";
 import { IconUpload } from "@tabler/icons-react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+
 import { toast } from "sonner";
 
 export default function RentalModalButton() {
   const [days, setDays] = useState<number>(31);
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [dialogTrigger, setDialogTrigger] = useState<Boolean>(false);
+
+  const router = useRouter();
 
   const signMessageWithTimeConstrain = async () => {
     if (window.tronLink === undefined) {
@@ -78,6 +83,15 @@ export default function RentalModalButton() {
         const response = await axios(config);
         console.log("response baby:", response.data);
         toast.success("Uploded!!");
+
+        toast.info(`${response.data.creditRequired} Credits used`, {
+          duration: 5000,
+          position: "bottom-center"
+        });
+
+        setTimeout(() => {
+          return router.refresh();
+        }, 1000);
       } catch (err: any) {
         toast.error(err.response.data.message);
       }
@@ -86,14 +100,35 @@ export default function RentalModalButton() {
       console.log("ERROR:", err);
     } finally {
       setIsLoading(false);
+      setDialogTrigger(false);
     }
   }
 
   function handleFileSelectChange(event: any) {
+    const selectedFile = event.target.files[0];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/jpg",
+      "application/json"
+    ];
+
+    const isAllowedType = allowedTypes.includes(selectedFile.type);
+    const isWithinSizeLimit = selectedFile.size <= 10 * 1024 * 1024;
+
+    if (!isAllowedType) {
+      toast.error(`Only ${allowedTypes.join(", ")} files are allowed.`);
+      return;
+    }
+    if (!isWithinSizeLimit) {
+      toast.error("File size must not exceed 10MB.");
+      return;
+    }
+
     setFile(event.target.files[0]);
   }
   return (
-    <Dialog>
+    <Dialog open={dialogTrigger == true} onOpenChange={setDialogTrigger}>
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -143,7 +178,11 @@ export default function RentalModalButton() {
           {isLoading ? (
             <LoaderButton />
           ) : (
-            <Button type="submit" onClick={uploadHandle}>
+            <Button
+              type="submit"
+              disabled={file == null}
+              onClick={uploadHandle}
+            >
               upload
             </Button>
           )}
