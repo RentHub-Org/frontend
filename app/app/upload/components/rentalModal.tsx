@@ -84,7 +84,9 @@ export default function RentalModalButton() {
         console.log("response baby:", response.data);
         toast.success("Uploded!!");
 
-        toast.info(`${response.data.creditRequired} Credits used`, {
+        const { bttCost, creditsCost } = response.data.rentalCost;
+
+        toast.info(`${creditsCost} Credits used \t and  ${bttCost} BTT used`, {
           duration: 5000,
           position: "bottom-center"
         });
@@ -127,6 +129,7 @@ export default function RentalModalButton() {
 
     setFile(event.target.files[0]);
   }
+
   return (
     <Dialog open={dialogTrigger == true} onOpenChange={setDialogTrigger}>
       <DialogTrigger asChild>

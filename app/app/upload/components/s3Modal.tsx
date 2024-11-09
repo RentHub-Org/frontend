@@ -19,29 +19,30 @@ import { useState } from "react";
 
 import { toast } from "sonner";
 import {
+  CreateBucketCommand,
+  GetObjectCommand,
+  HeadBucketCommand,
   PutObjectCommand,
   S3Client,
   S3ServiceException
 } from "@aws-sdk/client-s3";
-
-// Configure AWS S3 with BTFS endpoint and credentials
-const s3 = new S3Client({
-  endpoint: "http://127.0.0.1:6001/",
-  credentials: {
-    accessKeyId: "82f87b29-9aa5-492e-b479-2afc7bb73fe6", // Replace with your access key
-    secretAccessKey: "WGicMAP6fWE9syQi1mL4utpQI3NZwpqs" // Replace with your secret key
-  },
-  forcePathStyle: true,
-  apiVersion: "v4",
-  region: "us-east-1"
-});
+import { useSession } from "next-auth/react";
+import { s3 } from "@/lib/utils";
 
 export default function S3Modal() {
   const [files, setFiles] = useState<File[] | []>([]);
   const [uploadedFiles, setUploadedFiles] = useState<any>("");
+
   const [isLoading, setIsLoading] = useState(false);
   const [dialogTrigger, setDialogTrigger] = useState<Boolean>(false);
-  const bucketName = "renthub-main";
+  var bucketName = "";
+
+  const session = useSession() as any;
+  console.log(session);
+
+  if (session.status == "authenticated") {
+    bucketName = session?.data?.address?.base56;
+  }
 
   const router = useRouter();
 
@@ -71,12 +72,27 @@ export default function S3Modal() {
         Bucket: bucketName,
         Key: file.webkitRelativePath || file.name,
         Body: file
-        // ACL: "private"
       };
-
       try {
-        const response = await s3.send(new PutObjectCommand(params));
-        console.log(response);
+        // Checking if bucket already exists
+        try {
+          await s3.send(new HeadBucketCommand({ Bucket: bucketName }));
+          console.log(`Bucket ${bucketName} exists.`);
+        } catch (error: any) {
+          if (error.name === "NotFound") {
+            console.log(`Bucket ${bucketName} does not exist. Creating...`);
+            await s3.send(new CreateBucketCommand({ Bucket: bucketName }));
+            console.log(`Bucket ${bucketName} created successfully.`);
+          } else {
+            throw error;
+          }
+        }
+
+        const asdf = await s3.send(new PutObjectCommand(params));
+
+        console.log("res : ", asdf);
+
+        toast.success(`Uploaded ${file.name}`);
       } catch (caught) {
         if (
           caught instanceof S3ServiceException &&
@@ -86,11 +102,19 @@ export default function S3Modal() {
             `Error from S3 while uploading object to ${bucketName}. \
     The object was too large. To upload objects larger than 5GB.`
           );
+          toast.error(
+            `Error from S3 while uploading object to ${bucketName}. \
+    The object was too large. To upload objects larger than 5GB.`
+          );
         } else if (caught instanceof S3ServiceException) {
           console.error(
             `Error from S3 while uploading object to ${bucketName}.  ${caught.name}: ${caught.message}`
           );
+          toast.error(
+            `Error from S3 while uploading object to ${bucketName}.  ${caught.name}: ${caught.message}`
+          );
         } else {
+          toast.error("Unexpected Error Occured !");
           throw caught;
         }
       } finally {
@@ -144,12 +168,12 @@ export default function S3Modal() {
             <Button
               type="submit"
               disabled={files[0] == null}
-              // onClick={uploadHandle}
-              onClick={() =>
-                toast.info(
-                  "This feature is still in development, kind contact developers for more info."
-                )
-              }
+              onClick={uploadHandle}
+              // onClick={() =>
+              //   toast.info(
+              //     "This feature is still in development, kind contact developers for more info."
+              //   )
+              // }
             >
               upload
             </Button>
