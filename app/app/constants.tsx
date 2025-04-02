@@ -1,4 +1,4 @@
-import { IconSausage, IconUserBolt, IconBrandTelegram, IconFile, IconBucket } from "@tabler/icons-react";
+import { IconSausage, IconUserBolt, IconBrandTelegram, IconFile, IconBucket, IconBrandPaypay } from "@tabler/icons-react";
 import { LucideKeySquare } from "lucide-react";
 
 export const links = [
@@ -35,6 +35,13 @@ export const links = [
       href: "/app/api",
       icon: (
         <LucideKeySquare  className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Payments",
+      href: "/app/payments",
+      icon: (
+        <IconBrandPaypay className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     

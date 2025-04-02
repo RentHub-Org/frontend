@@ -7,7 +7,6 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
-import { IconAsterisk } from "@tabler/icons-react";
 import { ReactNode, useEffect, useState } from "react";
 import { File } from "../page";
 import RentalModalButton from "./rentalModal";
@@ -31,24 +30,21 @@ export default function RentalSection({ files }: { files: File[] }) {
   const propDril = { isLargeScreen, isMobileScreen };
   return (
     <div className="md:px-[40px]">
-      <div className="flex justify-between w-full">
-        <div className="flex gap-1 items-center text-[#bab9b9]">
-          <IconAsterisk className="text-theme-3" size={10} />
-          <span>Rent btfs node to upload your data on btfs.</span>
-        </div>
+      <div className="flex justify-end w-full">
+        
         <RentalModalButton />
       </div>
       <div className="mt-2">
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead className="w-[30%]">Name</TableHead>
-              {isLargeScreen && <TableHead className="w-[20%]">Hash</TableHead>}
-              <TableHead className="">Pinned-On</TableHead>
+            <TableRow className="border-theme-3  hover:bg-theme-1/0">
+              <TableHead className="w-[30%] hover:bg-theme-1/10">Name</TableHead>
+              {isLargeScreen && <TableHead className="w-[20%] hover:bg-theme-1/10">Hash</TableHead>}
+              <TableHead className="hover:bg-theme-1/10">Pinned-On</TableHead>
               {!isMobileScreen && (
-                <TableHead className="text-right">Un-pinning in</TableHead>
+                <TableHead className="text-right hover:bg-theme-1/10">Un-pinning in</TableHead>
               )}
-              <TableHead className="text-right"></TableHead>
+              <TableHead className="text-right hover:bg-theme-1/10">Link</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

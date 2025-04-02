@@ -1,5 +1,6 @@
 "use client"; // This is a comment
 import { Button } from "@/components/ui/button";
+import { FileUpload } from "@/components/ui/file-upload";
 import {
   Dialog,
   DialogContent,
@@ -106,8 +107,8 @@ export default function RentalModalButton() {
     }
   }
 
-  function handleFileSelectChange(event: any) {
-    const selectedFile = event.target.files[0];
+  function handleFileSelectChange(files: any) {
+    const selectedFile = files[0];
     const allowedTypes = [
       "image/jpeg",
       "image/png",
@@ -127,7 +128,7 @@ export default function RentalModalButton() {
       return;
     }
 
-    setFile(event.target.files[0]);
+    setFile(files[0]);
   }
 
   return (
@@ -150,16 +151,19 @@ export default function RentalModalButton() {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+          <div className="items-center gap-4">
+            {/* <Label htmlFor="name" className="text-right">
               File upload
-            </Label>
-            <Input
+            </Label> */}
+            {/* <Input
               id="name"
               className="col-span-3"
               onChange={handleFileSelectChange}
               type="file"
-            />
+            /> */}
+            <div className=" w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
+              <FileUpload onChange={handleFileSelectChange} />
+            </div>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
