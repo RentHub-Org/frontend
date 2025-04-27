@@ -41,7 +41,7 @@ export default function PaymentModal({address}: { address: string }) {
   const [localTimeInterval, setLocalTimeInterval] = useState<any>(null);
   const [ lastErrorMessage, setLastErrorMessage ] = useState<string>("");
   const [ successMEssage, setSuccessMEssage ] = useState<string>("");
-  const [ windowState, setWindowState ] = useState(2);
+  const [ windowState, setWindowState ] = useState(0);
   /*
     0-> initial request tioken state.
     1-> qr showinf state
