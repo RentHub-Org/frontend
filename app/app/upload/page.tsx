@@ -47,7 +47,7 @@ export default async function DashBoard() {
         createdBy_email: data.address.base56
       }
     })
-    .then((fields: FileField[]) => {
+    .then((fields: any) => {
       return fields.map((field: FileField): File => {
         return {
           hash: field.hash,
