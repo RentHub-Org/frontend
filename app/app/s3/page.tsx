@@ -21,7 +21,7 @@ export default async function BtfsStorage() {
     redirect("/app");
   }
 
-  console.log("data : ", data);
+   // console.log("data : ", data);
 
   return (
     <main className="flex flex-col space-y-4 h-full text-white relative overflow-hidden border-yellow-300 border-2 rounded-[10px]">

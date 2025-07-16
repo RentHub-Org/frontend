@@ -17,7 +17,7 @@ import { Input } from "postcss";
 import { useState } from "react";
 
 export default function BillsModal({bills}: any){
-  console.log(bills); 
+   // console.log(bills); 
   return (
         <Sheet>
         <SheetTrigger asChild>

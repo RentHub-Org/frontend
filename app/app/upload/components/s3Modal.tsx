@@ -38,7 +38,7 @@ export default function S3Modal() {
   var bucketName = "";
 
   const session = useSession() as any;
-  console.log(session);
+   // console.log(session);
 
   if (session.status == "authenticated") {
     bucketName = session?.data?.address?.base56;
@@ -58,7 +58,7 @@ export default function S3Modal() {
   //     const message =
   //       window.tronLink.tronWeb.defaultAddress?.base58 + ":" + sigValidTill;
   //     const signature = await window.tronLink.tronWeb.trx.signMessageV2(message);
-  //     console.log("signature:", signature);
+  //      // console.log("signature:", signature);
   //     return { message: message, signature: signature };
   //   };
   async function uploadHandle() {
@@ -77,12 +77,12 @@ export default function S3Modal() {
         // Checking if bucket already exists
         try {
           await s3.send(new HeadBucketCommand({ Bucket: bucketName }));
-          console.log(`Bucket ${bucketName} exists.`);
+           // console.log(`Bucket ${bucketName} exists.`);
         } catch (error: any) {
           if (error.name === "NotFound") {
-            console.log(`Bucket ${bucketName} does not exist. Creating...`);
+             // console.log(`Bucket ${bucketName} does not exist. Creating...`);
             await s3.send(new CreateBucketCommand({ Bucket: bucketName }));
-            console.log(`Bucket ${bucketName} created successfully.`);
+             // console.log(`Bucket ${bucketName} created successfully.`);
           } else {
             throw error;
           }
@@ -90,7 +90,7 @@ export default function S3Modal() {
 
         const asdf = await s3.send(new PutObjectCommand(params));
 
-        console.log("res : ", asdf);
+         // console.log("res : ", asdf);
 
         toast.success(`Uploaded ${file.name}`);
       } catch (caught) {

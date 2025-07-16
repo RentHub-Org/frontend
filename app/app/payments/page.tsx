@@ -33,8 +33,8 @@ export default async function PaymentGateway() {
     console.error("error accessing db.");
     return [] as bills[];
   })
-  console.log("bills:", bills);
-  console.log(session.address.base56);
+   // console.log("bills:", bills);
+   // console.log(session.address.base56);
   return (
     <>
       <div>

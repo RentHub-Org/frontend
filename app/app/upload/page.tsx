@@ -63,7 +63,7 @@ export default async function DashBoard() {
   const rentalFiles = THE_FILES.filter(
     (file: File) => file.listType == "RENTAL"
   );
-  console.log("FILES🥹🥹:", THE_FILES);
+   // console.log("FILES🥹🥹:", THE_FILES);
   return (
     <>
       <div className="flex gap-2 items-center">

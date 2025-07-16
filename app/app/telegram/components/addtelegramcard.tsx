@@ -40,7 +40,7 @@ export default function AddTelegramCard({session}: {session: SessionProp}) {
             //todo: swat to the tronlink adapter for validation ..
             const message = session.address.base56 + ":" + name;
             const signature = await window.tronWeb?.trx.signMessageV2(message);
-            console.log(process.env.NEXT_PUBLIC_CORE_BASE_URL);
+             // console.log(process.env.NEXT_PUBLIC_CORE_BASE_URL);
             const res = await axios(process.env.NEXT_PUBLIC_CORE_BASE_URL+"/user/addTelegramHandle",{
                 method: "POST",
                 data: {
@@ -57,7 +57,7 @@ export default function AddTelegramCard({session}: {session: SessionProp}) {
             }).catch((err) => {
                 if(err.response.data){
                     toast.info(err.response.data.message);
-                    console.log("yo telegram system boi...",err.response.data);                
+                     // console.log("yo telegram system boi...",err.response.data);                
                 }else{
                     toast.error("failed adding telegram");
                 }
@@ -70,7 +70,7 @@ export default function AddTelegramCard({session}: {session: SessionProp}) {
         }
     }
     const handleChange = (event:any) => {
-        console.log(event.target.value);
+         // console.log(event.target.value);
         setName(event.target.value);
       };
     return (

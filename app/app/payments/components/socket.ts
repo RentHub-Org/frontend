@@ -28,12 +28,12 @@ const usePaymentSocket = () => {
     setSocket(newSocket);
 
     newSocket.on("connect", () => {
-      console.log("⚠️⚠️⚠️Connected to WebSocket⚠️⚠️⚠️");
+       // console.log("⚠️⚠️⚠️Connected to WebSocket⚠️⚠️⚠️");
       setConnStatus(1);
     });
 
     newSocket.on("disconnect", () => {
-      console.log("Disconnected from WebSocket");
+       // console.log("Disconnected from WebSocket");
       setConnStatus(0);
       setSocket(null);
     });
@@ -54,19 +54,19 @@ const usePaymentSocket = () => {
       return ;
     }
     if (socket) {
-      console.log("Payload: ", payload);
-      console.log("Sent the payload to the server...");
+       // console.log("Payload: ", payload);
+       // console.log("Sent the payload to the server...");
       setInit(true);
       
       
       socket.on("token", (message: string) => {
-        console.log("Got the token...", message);
+         // console.log("Got the token...", message);
         setToken(message);
         tokenCallbackRef.current(message);
       });
 
       socket.on("time", (remainingTime: string) => {
-        console.log("yo time:, ", remainingTime);
+         // console.log("yo time:, ", remainingTime);
         timeUpdateCallbackRef.current(parseInt(remainingTime));
       });
 

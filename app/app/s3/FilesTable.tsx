@@ -37,7 +37,7 @@ const FilesTable = ({ bucketName }: { bucketName: string }) => {
   //       contents = contents.concat(Contents);
 
   //       setFiles(contents);
-  //       console.log(Contents);
+  //        // console.log(Contents);
   //       isTruncate = IsTruncated;
   //       command.input.ContinuationToken = NextContinuationToken;
   //     }
@@ -104,7 +104,7 @@ export default FilesTable;
 function FileRow({ file, bucketName }: { file: any; bucketName: string }) {
   function calculateDays() {
     const creationDate = new Date(file?.lastModified);
-    console.log(creationDate.getTime());
+     // console.log(creationDate.getTime());
   }
   function customTruncate(hash: string): React.ReactNode {
     return (
@@ -130,7 +130,7 @@ function FileRow({ file, bucketName }: { file: any; bucketName: string }) {
   //   try {
   //     const response = (await s3.send(command)) as any;
   //     await pipeline(response?.Body, createWriteStream("./" + key));
-  //     console.log(`File downloaded successfully: ${"./" + key}`);
+  //      // console.log(`File downloaded successfully: ${"./" + key}`);
   //   } catch (error) {
   //     console.error("Error downloading file:", error);
   //     throw error;

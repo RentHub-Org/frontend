@@ -28,10 +28,10 @@ export function ApiKeysTable() {
             method : "GET"
         });
         const data =await res.json();
-        console.log(data);
+         // console.log(data);
         setKeys(data.apiKeys);
         }catch(err){
-            console.log(err);
+             // console.log(err);
         }
     }
     useEffect(()=>{
@@ -113,7 +113,7 @@ function AddApiKey({calling}: any){
         .then((res)=>{
             if(res.status == 200)
                 toast.success("New api-key created successfully.");
-            console.log("res: ",res);
+             // console.log("res: ",res);
         })
         .catch((err)=>{
             toast.error("Error while creating a new api-key. Please try again later.");

@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 export default function Component() {
   const { connect, disconnect, select, connected } = useWallet();
   const session = useSession();
-  console.log("session", session);
+   // console.log("session", session);
   const [currentStep, setCurrentStep] = useState(1);
   const [walletInstalled, setWalletInstalled] = useState(false);
   const [walletConnected, setWalletConnected] = useState(connected);

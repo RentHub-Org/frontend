@@ -12,7 +12,7 @@ import { useSession } from "next-auth/react";
 
 export default function Home() {
   const session = useSession();
-  console.log(session);
+  //  // console.log(session);
   return (
     <main className="bg-black P-full max-h-max min-h-screen">
       <Navbar session={session} />

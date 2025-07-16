@@ -40,7 +40,7 @@ export default function RentalModalButton() {
     const message =
       window.tronLink.tronWeb.defaultAddress?.base58 + ":" + sigValidTill;
     const signature = await window.tronLink.tronWeb.trx.signMessageV2(message);
-    console.log("signature:", signature);
+     // console.log("signature:", signature);
     return { message: message, signature: signature };
   };
   async function uploadHandle() {
@@ -50,7 +50,7 @@ export default function RentalModalButton() {
       return;
     }
 
-    console.log(file);
+     // console.log(file);
     if (!days || days < 31) {
       toast.error("Please enter the days for which you want to rent the node.");
       return;
@@ -82,7 +82,7 @@ export default function RentalModalButton() {
       };
       try {
         const response = await axios(config);
-        console.log("response baby:", response.data);
+         // console.log("response baby:", response.data);
         toast.success("Uploded!!");
 
         const { bttCost, creditsCost } = response.data.rentalCost;
@@ -100,7 +100,7 @@ export default function RentalModalButton() {
       }
     } catch (err) {
       toast.error("Error while uploding the file. Please try again later.");
-      console.log("ERROR:", err);
+       // console.log("ERROR:", err);
     } finally {
       setIsLoading(false);
       setDialogTrigger(false);

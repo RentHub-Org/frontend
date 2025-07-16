@@ -180,7 +180,7 @@ export const CopyAddr = ({ address }: { address: string }) => {
     copy(text)
       .then(() => {
         toast.info("address copied !");
-        console.log("Copied!", { text });
+         // console.log("Copied!", { text });
       })
       .catch((error) => {
         console.error("Failed to copy!", error);

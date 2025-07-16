@@ -121,7 +121,7 @@ export default function PaymentModal({address}: { address: string }) {
     startClock();
     // add more logic if needed...
   }
-  console.log("localtoken:", localToken);
+   // console.log("localtoken:", localToken);
 
   const onConnect = async ()=>{
      // get teh wallet connect system..
@@ -143,7 +143,7 @@ export default function PaymentModal({address}: { address: string }) {
     const signature = await window.tronWeb?.trx.signMessageV2(message);
     payload.message = message;
     payload.signature = signature || "";
-    console.log("payload ", payload);
+     // console.log("payload ", payload);
     initiatePayment(JSON.stringify(payload));
      // setting the callbacks man......
     setErrorCallback(errorCallBack);

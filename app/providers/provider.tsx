@@ -24,7 +24,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
     } else console.error(e.message);
   }
   const onAccountsChanged = useCallback((curAddr: any, preAddr: any) => {
-    console.log("new address is: ", curAddr, " previous address is: ", preAddr);
+     // console.log("new address is: ", curAddr, " previous address is: ", preAddr);
   }, []);
 
   return (

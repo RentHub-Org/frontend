@@ -38,7 +38,7 @@ export default {
             console.error(err);
           }
 
-          console.log("user created successfully !");
+           // console.log("user created successfully !");
           return {
             id: "1",
             name: "tronUser",
@@ -48,7 +48,7 @@ export default {
             }
           };
         } catch (err) {
-          console.log("ERROR :", err);
+           // console.log("ERROR :", err);
         }
         return null;
       }
