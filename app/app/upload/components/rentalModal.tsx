@@ -74,8 +74,8 @@ export default function RentalModalButton() {
           file.size / 1024
         }`,
         headers: {
-          tron_message: data.message,
-          tron_signature: data.signature,
+          tronmessage: data.message,
+          tronsignature: data.signature,
           "Content-Type": "multipart/form-data"
         },
         data: formdata
