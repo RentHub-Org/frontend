@@ -142,7 +142,8 @@ export default function RentalModalButton() {
           Upload
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-black">
+      <DialogContent className="sm:max-w-[505px] bg-black">
+        <DialogTitle></DialogTitle>
         <DialogHeader>
           <DialogTitle>Upload to Rental</DialogTitle>
           <DialogDescription>

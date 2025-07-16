@@ -60,7 +60,6 @@ export default async function DashBoard() {
         };
       });
     });
-  const devFiles = THE_FILES.filter((file: File) => file.listType == "DEV");
   const rentalFiles = THE_FILES.filter(
     (file: File) => file.listType == "RENTAL"
   );

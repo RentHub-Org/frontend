@@ -47,12 +47,21 @@ export default function AddTelegramCard({session}: {session: SessionProp}) {
                     message,
                     signature,
                 }
+            }).then((res) => {
+                if(res.status == 201){
+                    setName("");
+                    // navigate to the link..
+                    window.open(res.data, "_blank");
+                }   
+                return res;
+            }).catch((err) => {
+                if(err.response.data){
+                    toast.info(err.response.data.message);
+                    console.log("yo telegram system boi...",err.response.data);                
+                }else{
+                    toast.error("failed adding telegram");
+                }
             });
-            console.log("res:",res);
-            if(res.status == 201){
-                setName("");
-                toast.success("Username added!");
-            }
         }catch(err){
             toast.error("failed adding telegram");
             console.error("Error while adding address:",err);
