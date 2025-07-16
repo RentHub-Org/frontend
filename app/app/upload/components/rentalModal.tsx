@@ -59,52 +59,46 @@ export default function RentalModalButton() {
     setIsLoading(true);
 
     const formdata = new FormData();
-    try {
-      const data: { message: string; signature: string } =
-        (await signMessageWithTimeConstrain()) as {
-          message: string;
-          signature: string;
-        };
-      formdata.append("file", file, file.name);
-      var config = {
-        method: "post",
-        url: `${
-          process.env.NEXT_PUBLIC_CORE_BASE_URL
-        }/tronSig/upload?to-blockchain=true&days=${days}&fileSize=${
-          file.size / 1024
-        }`,
-        headers: {
-          tronmessage: data.message,
-          tronsignature: data.signature,
-          "Content-Type": "multipart/form-data"
-        },
-        data: formdata
+    const data: { message: string; signature: string } =
+      (await signMessageWithTimeConstrain()) as {
+        message: string;
+        signature: string;
       };
-      try {
-        const response = await axios(config);
-         // console.log("response baby:", response.data);
-        toast.success("Uploded!!");
+    formdata.append("file", file, file.name);
+    var config = {
+      method: "post",
+      url: `${
+        process.env.NEXT_PUBLIC_CORE_BASE_URL
+      }/tronSig/upload?to-blockchain=true&days=${days}&fileSize=${
+        file.size / 1024
+      }`,
+      headers: {
+        tronmessage: data.message,
+        tronsignature: data.signature,
+        "Content-Type": "multipart/form-data"
+      },
+      data: formdata
+    };
+    try {
+      const response = await axios(config);
+        // console.log("response baby:", response.data);
+      toast.success("Uploded!!");
 
-        const { bttCost, creditsCost } = response.data.rentalCost;
+      const { bttCost, creditsCost } = response.data.rentalCost;
 
-        toast.info(`${creditsCost} Credits used \t and  ${bttCost} BTT used`, {
-          duration: 5000,
-          position: "bottom-center"
-        });
+      toast.info(`${creditsCost} Credits used \t and  ${bttCost} BTT used`, {
+        duration: 5000,
+        position: "bottom-center"
+      });
 
-        setTimeout(() => {
-          return router.refresh();
-        }, 1000);
-      } catch (err: any) {
-        toast.error(err.response.data.message);
-      }
-    } catch (err) {
-      toast.error("Error while uploding the file. Please try again later.");
-       // console.log("ERROR:", err);
-    } finally {
-      setIsLoading(false);
-      setDialogTrigger(false);
+      setTimeout(() => {
+        return router.refresh();
+      }, 1000);
+    } catch (err: any) {
+      toast.error(err.response.data.message);
     }
+    setIsLoading(false);
+    setDialogTrigger(false);
   }
 
   function handleFileSelectChange(files: any) {
