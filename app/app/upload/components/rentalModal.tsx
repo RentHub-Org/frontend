@@ -96,9 +96,10 @@ export default function RentalModalButton() {
       }, 1000);
     } catch (err: any) {
       toast.error(err.response.data.message);
+    }finally{
+      setIsLoading(false);
+      setDialogTrigger(false);
     }
-    setIsLoading(false);
-    setDialogTrigger(false);
   }
 
   function handleFileSelectChange(files: any) {
